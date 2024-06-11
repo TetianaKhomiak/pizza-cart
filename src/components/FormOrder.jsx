@@ -17,9 +17,10 @@ const FormOrder = () => {
   const [postOrder] = usePostOrderMutation();
   const items = useSelector((state) => state.counter.items);
   const totalItemsPrice = useSelector((state) => state.counter.totalItemsPrice);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [finalPrice, setFinalPrice] = useState(totalItemsPrice);
+  const cart = useSelector((state) => state.cart.currentCart);
 
   const {
     handleSubmit,
@@ -53,7 +54,6 @@ const FormOrder = () => {
         unitPrice: item.unitPrice,
         ingredients: item.ingredients,
       })),
-      totalPrice: totalItemsPrice.toFixed(2),
     };
 
     try {
@@ -71,10 +71,37 @@ const FormOrder = () => {
   };
 
   const onSubmit = async (data) => {
-    // setError(
-    //   "Some issues have occurred 😔 Please, contact us on 000 555 33 22"
-    // );
-    // }
+    if (isPrioritized == false) {
+      const orderPayload = {
+        address: data.address,
+        customer: data.firstName,
+        phone: data.phoneNumber,
+        priority: isPrioritized,
+        position: "",
+        cart: items.map((item) => ({
+          pizzaId: item.id,
+          name: item.name,
+          quantity: item.qty,
+          // totalPrice: item.totalPriceOfItem,
+          unitPrice: item.unitPrice,
+          ingredients: item.ingredients,
+        })),
+      };
+
+      try {
+        const response = await postOrder(orderPayload).unwrap();
+        console.log(response);
+        dispatch(setCart(response));
+        navigate(`/pizzas-app/order/${response.data.id}`);
+      } catch (e) {
+        console.error(e);
+        setError(
+          "Some issues have occurred 😔 Please, contact us on 000 555 33 22"
+        );
+      }
+    } else {
+      navigate(`/pizzas-app/order/${cart.data.id}`);
+    }
   };
 
   return (
