@@ -1,29 +1,30 @@
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../context/UserNameProvider.jsx";
 import { useNavigate } from "react-router-dom";
+import { OrderSearchContext } from "../context/OrderSearchProvider.jsx";
 
 function Header({ className }) {
   const { userName } = useContext(UserContext);
   const [value, setValue] = useState("");
-  // const { orderId } = useContext(OrderSearchContext);
+  const { orderId } = useContext(OrderSearchContext);
   const navigate = useNavigate();
 
   const handleSearch = (e) => {
     setValue(e.target.value);
   };
 
-  // useEffect(() => {
-  //   const timeoutId = setTimeout(() => {
-  //     if (value.trim() !== "") {
-  //       if (orderId.includes(value.trim())) {
-  //         navigate(`/pizzas-app/order/${value.trim()}`);
-  //       } else {
-  //         navigate("/pizzas-app/order/not-found");
-  //       }
-  //     }
-  //   }, 1500);
-  //   return () => clearTimeout(timeoutId);
-  // }, [value]);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (value.trim() !== "") {
+        if (orderId.includes(value.trim())) {
+          navigate(`/pizzas-app/order/${value.trim()}`);
+        } else {
+          navigate("/pizzas-app/order/not-found");
+        }
+      }
+    }, 1500);
+    return () => clearTimeout(timeoutId);
+  }, [value]);
 
   return (
     <header className={className}>

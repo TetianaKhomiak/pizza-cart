@@ -11,15 +11,19 @@ import { useNavigate } from "react-router-dom";
 const OrderDetails = () => {
   const { orderId, setOrderId } = useContext(OrderSearchContext);
   const [error, setError] = useState("");
-  const totalItemsPrice = useSelector((state) => state.counter.totalItemsPrice);
-  const cart = useSelector((state) => state.cart.currentCart);
+  const cart = useSelector((state) => state.cart.currentCart.data);
   const [postOrder] = usePostOrderMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const priorityPrice = cart.priorityPrice;
+  const orderPrice = cart.orderPrice;
+  const finalItemsPrice = cart.priority
+    ? (orderPrice + priorityPrice).toFixed(2)
+    : orderPrice.toFixed(2);
 
   const handlePriority = async () => {
     const orderPayload = {
-      ...cart.data,
+      ...cart,
       priority: true,
     };
 
@@ -49,9 +53,9 @@ const OrderDetails = () => {
             <div className="order-details__wrapper">
               <div className="order-details__header">
                 <h2 className="order-details__title">
-                  Order {cart.data.id} status: {cart.data.status}
+                  Order {cart.id} status: {cart.status}
                 </h2>
-                {!cart.data.priority ? (
+                {!cart.priority ? (
                   <p className="order-details__title_green">PREPARING ORDER</p>
                 ) : (
                   <div className="order-details__priority">
@@ -62,20 +66,20 @@ const OrderDetails = () => {
               </div>
               <div className="order-details__time">
                 <p className="order-details__time_big">
-                  Only {calculateTimeDifference(cart.data.estimatedDelivery)}
+                  Only {calculateTimeDifference(cart.estimatedDelivery)}
                   <span className="order-details__time_margin">minutes</span>
                   <span className="order-details__time_margin"> left </span>😃
                 </p>
                 <p className="order-details__time_small">
                   (Estimated delivery:
-                  {formatDate(cart.data.estimatedDelivery)})
+                  {formatDate(cart.estimatedDelivery)})
                 </p>
               </div>
               <div>
                 <hr className="order-details__line" />
-                {cart.data &&
-                  cart.data.cart &&
-                  cart.data.cart.map((item) => {
+                {cart &&
+                  cart.cart &&
+                  cart.cart.map((item) => {
                     return (
                       <div key={item.pizzaId}>
                         <div className="order-details__item">
@@ -94,12 +98,12 @@ const OrderDetails = () => {
                   })}
               </div>
               <div>
-                {!cart.data.priority ? (
+                {!cart.priority ? (
                   <div>
                     <div className="order-details__price">
-                      <p>Price pizza: €{cart.data.orderPrice.toFixed(2)} </p>
+                      <p>Price pizza: €{orderPrice} </p>
                       <p className="order-details__price_text">
-                        To pay on delivery: €{totalItemsPrice.toFixed(2)}
+                        To pay on delivery: €{finalItemsPrice}
                       </p>
                     </div>
                     <button
@@ -110,13 +114,12 @@ const OrderDetails = () => {
                   </div>
                 ) : (
                   <div className="order-details__price">
-                    <p>Price pizza: €{cart.data.orderPrice.toFixed(2)} </p>
+                    <p>Price pizza: €{orderPrice} </p>
                     <p className="order-details__price_regular">
-                      Price priority: €{cart.data.priorityPrice}
+                      Price priority: €{priorityPrice}
                     </p>
                     <p className="order-details__price_text">
-                      To pay on delivery: €
-                      {cart.data.orderPrice + cart.data.priorityPrice}
+                      To pay on delivery: €{finalItemsPrice}
                     </p>
                   </div>
                 )}
