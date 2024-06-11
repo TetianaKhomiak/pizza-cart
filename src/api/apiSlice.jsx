@@ -11,7 +11,15 @@ export const apiSlice = createApi({
       query: () => "/menu",
       providesTags: ["Pizzas"],
     }),
+    postOrder: builder.mutation({
+      query: (body) => ({
+        url: "/order",
+        method: "POST",
+        body: body,
+      }),
+      invalidatesTags: ["Order"],
+    }),
   }),
 });
 
-export const { useFetchAllPizzasQuery } = apiSlice;
+export const { useFetchAllPizzasQuery, usePostOrderMutation } = apiSlice;

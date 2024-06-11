@@ -7,9 +7,12 @@ const Footer = () => {
   const totalItemsAmount = useSelector(
     (state) => state.counter.totalItemsAmount
   );
-  const totalItemsPrice = useSelector((state) =>
-    state.counter.totalItemsPrice.toFixed(2)
-  );
+  const cart = useSelector((state) => state.cart.currentCart);
+  const totalItemsPrice = useSelector((state) => state.counter.totalItemsPrice);
+  const finalItemsPrice =
+    cart && cart.data && cart.data.priority
+      ? (totalItemsPrice + cart.data.priorityPrice).toFixed(2)
+      : totalItemsPrice.toFixed(2);
 
   return (
     <div className="footer__wrapper">
@@ -17,15 +20,16 @@ const Footer = () => {
         <div>
           {totalItemsAmount > 1 ? (
             <p>
-              {totalItemsAmount} PIZZAS €{totalItemsPrice}
+              {totalItemsAmount} PIZZAS €{finalItemsPrice}
             </p>
           ) : (
             <p>
-              {totalItemsAmount} PIZZA €{totalItemsPrice}
+              {totalItemsAmount} PIZZA €{finalItemsPrice}
             </p>
           )}
         </div>
       </div>
+
       <Link className="footer__link" to="/pizzas-app/cart">
         OPEN CART →
       </Link>

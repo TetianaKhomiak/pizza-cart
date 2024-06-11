@@ -18,11 +18,9 @@ const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleOrder = () => {
+  const handleOrderPizzas = () => {
     navigate("/pizzas-app/order/new");
   };
-
-  const handleClearingCart = () => {};
 
   const formattedUserName =
     userName.charAt(0).toUpperCase() + userName.slice(1);
@@ -74,7 +72,7 @@ const Cart = () => {
               ))}
             </div>
             <div className="cart__btn_wrapper">
-              <button className="cart__btn_order" onClick={handleOrder}>
+              <button className="cart__btn_order" onClick={handleOrderPizzas}>
                 ORDER PIZZAS
               </button>
               <button

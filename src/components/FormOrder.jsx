@@ -6,17 +6,26 @@ import Input from "../components/Input.jsx";
 import { UserContext } from "../context/UserNameProvider.jsx";
 import { orderSchema } from "../schema/orderSchema.jsx";
 import { OrderSearchContext } from "../context/OrderSearchProvider.jsx";
+import { usePostOrderMutation } from "../api/apiSlice.jsx";
+import { useSelector, useDispatch } from "react-redux";
+import { setCart } from "../redux/cartSlice.jsx";
 
 const FormOrder = () => {
   const { userName } = useContext(UserContext);
   const [error, setError] = useState("");
-  const [isChecked, setIsChecked] = useState(false);
+  const [isPrioritized, setIsPrioritized] = useState(false);
+  const [postOrder] = usePostOrderMutation();
+  const items = useSelector((state) => state.counter.items);
+  const totalItemsPrice = useSelector((state) => state.counter.totalItemsPrice);
   // const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [finalPrice, setFinalPrice] = useState(totalItemsPrice);
 
   const {
     handleSubmit,
     control,
     formState: { errors },
+    getValues,
   } = useForm({
     mode: "onChange",
     defaultValues: {
@@ -27,14 +36,46 @@ const FormOrder = () => {
     resolver: zodResolver(orderSchema),
   });
 
+  const handleOrderPriority = async () => {
+    const data = getValues();
+    console.log(data);
+    const orderPayload = {
+      address: data.address,
+      customer: data.firstName,
+      phone: data.phoneNumber,
+      priority: !isPrioritized,
+      position: "",
+      cart: items.map((item) => ({
+        pizzaId: item.id,
+        name: item.name,
+        quantity: item.qty,
+        // totalPrice: item.totalPriceOfItem,
+        unitPrice: item.unitPrice,
+        ingredients: item.ingredients,
+      })),
+      totalPrice: totalItemsPrice.toFixed(2),
+    };
+
+    try {
+      const response = await postOrder(orderPayload).unwrap();
+      console.log(response);
+      dispatch(setCart(response));
+      setIsPrioritized(!isPrioritized);
+      setFinalPrice(totalItemsPrice + response.data.priorityPrice);
+    } catch (e) {
+      console.error(e);
+      setError(
+        "Some issues have occurred 😔 Please, contact us on 000 555 33 22"
+      );
+    }
+  };
+
   const onSubmit = async (data) => {
     // setError(
     //   "Some issues have occurred 😔 Please, contact us on 000 555 33 22"
     // );
     // }
   };
-
-  const sum = state.totalPrice + 8;
 
   return (
     <>
@@ -96,15 +137,24 @@ const FormOrder = () => {
               </div>
             </div>
             <div className="order__checkbox">
-              <input type="checkbox" id="priority" />
+              <input
+                type="checkbox"
+                id="priority"
+                checked={isPrioritized}
+                onChange={handleOrderPriority}
+              />
               <label className="order__label_checkbox" htmlFor="priority">
                 Want to give your order priority?
               </label>
             </div>
-            {isChecked ? (
-              <button className="order__btn">ORDER NOW FOR €</button>
+            {isPrioritized ? (
+              <button className="order__btn">
+                ORDER NOW FOR €{finalPrice}
+              </button>
             ) : (
-              <button className="order__btn">ORDER NOW FOR €</button>
+              <button className="order__btn">
+                ORDER NOW FOR €{totalItemsPrice}
+              </button>
             )}
           </form>
         </div>
