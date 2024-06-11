@@ -48,7 +48,11 @@ export const counterSlice = createSlice({
       state.totalItemsAmount = calcTotlaItems(state.items);
       state.totalItemsPrice = calcTotlaPrice(state.items);
     },
-    clearCart: (state, action) => {},
+    clearCart: (state) => {
+      state.items.length = 0;
+      state.totalItemsAmount = 0;
+      state.totalItemsPrice = 0;
+    },
   },
 });
 

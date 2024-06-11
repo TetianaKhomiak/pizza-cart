@@ -13,7 +13,6 @@ function Menu() {
     isLoading,
     isSuccess,
     isError,
-    error,
   } = useFetchAllPizzasQuery();
   const cartItems = useSelector((state) => state.counter.items);
 
@@ -38,8 +37,12 @@ function Menu() {
       </ul>
     );
   } else if (isError) {
-    content = <h1 className="error">{error}</h1>;
-    return;
+    content = (
+      <h1 className="error">
+        "Some issues have occurred 😔 <br /> Please, contact us on <br /> 000
+        555 33 22"
+      </h1>
+    );
   }
 
   return (

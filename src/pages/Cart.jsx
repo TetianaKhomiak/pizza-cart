@@ -4,12 +4,19 @@ import Footer from "../components/Footer.jsx";
 import Header from "../components/Header.jsx";
 import { UserContext } from "../context/UserNameProvider.jsx";
 import "../styles/cart.css";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addItem,
+  decrementItemAmount,
+  deleteItem,
+  clearCart,
+} from "../redux/counterSlice.jsx";
 
 const Cart = () => {
   const { userName } = useContext(UserContext);
+  const items = useSelector((state) => state.counter.items);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const handleDelete = () => {};
 
   const handleOrder = () => {
     navigate("/pizzas-app/order/new");
@@ -29,7 +36,7 @@ const Cart = () => {
         <Link className="cart__link" to="/pizzas-app/menu">
           ← Back to menu
         </Link>
-        {state.items.length === 0 ? (
+        {items.length === 0 ? (
           <p className="cart__message">
             Your cart is still empty. Start adding some pizzas :)
           </p>
@@ -37,21 +44,29 @@ const Cart = () => {
           <>
             <h1 className="cart__title">Your cart, {formattedUserName}</h1>
             <div>
-              {state.items.map((item) => (
+              {items.map((item) => (
                 <div className="cart__order" key={item.id}>
                   <p className="cart__order_element">
                     {item.qty}× {item.name}
                   </p>
                   <div className="cart__order_wrapper">
-                    <p className="cart__total">
+                    {/* <p className="cart__total">
                       €{item.totalPriceOfItem.toFixed(2)}
-                    </p>
-                    <button className="cart__btn_counter">-</button>
+                    </p> */}
+                    <button
+                      onClick={() => dispatch(decrementItemAmount(item))}
+                      className="cart__btn_counter">
+                      -
+                    </button>
                     <p className="cart__order_element">{item.qty}</p>
-                    <button className="cart__btn_counter">+</button>
+                    <button
+                      onClick={() => dispatch(addItem(item))}
+                      className="cart__btn_counter">
+                      +
+                    </button>
                     <button
                       className="cart__btn_delete"
-                      onClick={() => handleDelete()}>
+                      onClick={() => dispatch(deleteItem(item))}>
                       DELETE
                     </button>
                   </div>
@@ -62,7 +77,9 @@ const Cart = () => {
               <button className="cart__btn_order" onClick={handleOrder}>
                 ORDER PIZZAS
               </button>
-              <button className="cart__btn_clear" onClick={handleClearingCart}>
+              <button
+                className="cart__btn_clear"
+                onClick={() => dispatch(clearCart())}>
                 CLEAR CART
               </button>
             </div>

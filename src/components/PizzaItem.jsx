@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { addItem, deleteItem } from "../redux/counterSlice.jsx";
 
 function PizzaItem({ pizza }) {
-  const { id, name, unitPrice, imageUrl, ingredients, soldOut } = pizza;
+  const { name, unitPrice, imageUrl, ingredients, soldOut } = pizza;
   const [isAddingCounter, setIsAddingCounter] = useState(false);
   const dispatch = useDispatch();
 
