@@ -5,6 +5,7 @@ import Header from "../components/Header.jsx";
 import PizzaItem from "../components/PizzaItem.jsx";
 import { useFetchAllPizzasQuery } from "../api/apiSlice.jsx";
 import "../styles/menu.css";
+import { useSelector } from "react-redux";
 
 function Menu() {
   const {
@@ -14,6 +15,8 @@ function Menu() {
     isError,
     error,
   } = useFetchAllPizzasQuery();
+  const cartItems = useSelector((state) => state.counter.items);
+
   let content;
   if (isLoading) {
     return (
@@ -45,7 +48,7 @@ function Menu() {
         <Header className="menu__header" />
       </div>
       <div className="pizza__wrapper">{content}</div>
-      {/* {state.items.length > 0 && <Footer />} */}
+      {cartItems.length > 0 && <Footer />}
     </div>
   );
 }

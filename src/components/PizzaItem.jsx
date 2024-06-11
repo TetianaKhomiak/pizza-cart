@@ -1,13 +1,21 @@
 import { useState } from "react";
 import Button from "./Button.jsx";
 import Counter from "./Counter.jsx";
+import { useDispatch } from "react-redux";
+import { addItem } from "../redux/counterSlice.jsx";
 
 function PizzaItem({ pizza }) {
   const { id, name, unitPrice, imageUrl, ingredients, soldOut } = pizza;
   const [isAddingCounter, setIsAddingCounter] = useState(false);
+  const dispatch = useDispatch();
 
-  const handleDelete = (id) => {
+  const handleDelete = () => {
     setIsAddingCounter(false);
+  };
+
+  const handleAddingItem = () => {
+    dispatch(addItem(pizza));
+    setIsAddingCounter(true);
   };
 
   const formattedIngredients = ingredients
@@ -33,10 +41,9 @@ function PizzaItem({ pizza }) {
           ) : (
             <p className="pizza__price">Sold out</p>
           )}
-
           {isAddingCounter ? (
             <div className="pizza__btn_block">
-              <Counter id={id} />
+              <Counter pizza={pizza} />
               <Button
                 className="pizza__btn_delete"
                 onClick={() => handleDelete(id)}
@@ -44,7 +51,13 @@ function PizzaItem({ pizza }) {
               />
             </div>
           ) : (
-            !soldOut && <Button text="Add to cart" className="pizza__btn_add" />
+            !soldOut && (
+              <Button
+                onClick={handleAddingItem}
+                text="Add to cart"
+                className="pizza__btn_add"
+              />
+            )
           )}
         </div>
       </div>
