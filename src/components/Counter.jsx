@@ -1,7 +1,11 @@
 import React from "react";
 import Button from "./Button";
 import { useSelector, useDispatch } from "react-redux";
-import { addItem } from "../redux/counterSlice";
+import {
+  addItem,
+  decrementItemAmount,
+  resetItemAmount,
+} from "../redux/counterSlice";
 
 const Counter = ({ pizza }) => {
   const dispatch = useDispatch();
@@ -10,14 +14,22 @@ const Counter = ({ pizza }) => {
 
   return (
     <div className="pizza__counter_counter">
-      <Button className="pizza__btn_counter" text="-" />
+      <Button
+        onClick={() => dispatch(decrementItemAmount(pizza))}
+        className="pizza__btn_counter"
+        text="-"
+      />
       <span>{counter}</span>
       <Button
         onClick={() => dispatch(addItem(pizza))}
         className="pizza__btn_counter"
         text="+"
       />
-      <Button className="pizza__btn_delete" text="RESET" />
+      <Button
+        onClick={() => dispatch(resetItemAmount(pizza))}
+        className="pizza__btn_delete"
+        text="RESET"
+      />
     </div>
   );
 };

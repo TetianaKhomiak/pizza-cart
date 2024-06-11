@@ -23,9 +23,31 @@ export const counterSlice = createSlice({
       state.totalItemsAmount = calcTotlaItems(state.items);
       state.totalItemsPrice = calcTotlaPrice(state.items);
     },
-    decrementItemAmount: (state, action) => {},
-    resetItemAmount: (state, action) => {},
-    deleteItem: (state, action) => {},
+    decrementItemAmount: (state, action) => {
+      state.items = state.items.map((item) => {
+        if (item.id === action.payload.id) {
+          item.qty = item.qty > 1 ? item.qty - 1 : item.qty;
+        }
+        return item;
+      });
+      state.totalItemsAmount = calcTotlaItems(state.items);
+      state.totalItemsPrice = calcTotlaPrice(state.items);
+    },
+    resetItemAmount: (state, action) => {
+      state.items = state.items.map((item) => {
+        if (item.id === action.payload.id) {
+          item.qty = 1;
+        }
+        return item;
+      });
+      state.totalItemsAmount = calcTotlaItems(state.items);
+      state.totalItemsPrice = calcTotlaPrice(state.items);
+    },
+    deleteItem: (state, action) => {
+      state.items = state.items.filter((item) => item.id !== action.payload.id);
+      state.totalItemsAmount = calcTotlaItems(state.items);
+      state.totalItemsPrice = calcTotlaPrice(state.items);
+    },
     clearCart: (state, action) => {},
   },
 });

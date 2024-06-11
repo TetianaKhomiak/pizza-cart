@@ -2,18 +2,19 @@ import { useState } from "react";
 import Button from "./Button.jsx";
 import Counter from "./Counter.jsx";
 import { useDispatch } from "react-redux";
-import { addItem } from "../redux/counterSlice.jsx";
+import { addItem, deleteItem } from "../redux/counterSlice.jsx";
 
 function PizzaItem({ pizza }) {
   const { id, name, unitPrice, imageUrl, ingredients, soldOut } = pizza;
   const [isAddingCounter, setIsAddingCounter] = useState(false);
   const dispatch = useDispatch();
 
-  const handleDelete = () => {
+  const handleRemoveFromCart = () => {
+    dispatch(deleteItem(pizza));
     setIsAddingCounter(false);
   };
 
-  const handleAddingItem = () => {
+  const handleAddToCart = () => {
     dispatch(addItem(pizza));
     setIsAddingCounter(true);
   };
@@ -46,14 +47,14 @@ function PizzaItem({ pizza }) {
               <Counter pizza={pizza} />
               <Button
                 className="pizza__btn_delete"
-                onClick={() => handleDelete(id)}
+                onClick={handleRemoveFromCart}
                 text="DELETE"
               />
             </div>
           ) : (
             !soldOut && (
               <Button
-                onClick={handleAddingItem}
+                onClick={handleAddToCart}
                 text="Add to cart"
                 className="pizza__btn_add"
               />
