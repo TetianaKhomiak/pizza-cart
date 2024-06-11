@@ -2,11 +2,10 @@ import React, { useContext, useEffect } from "react";
 import FormLogin from "../components/FormLogin.jsx";
 import Header from "../components/Header.jsx";
 import { UserContext } from "../context/UserNameProvider.jsx";
-import { PizzaContext } from "../context/PizzaProvider.jsx";
 
 const Login = () => {
   const { setUserName } = useContext(UserContext);
-  const { dispatch } = useContext(PizzaContext);
+  //const { dispatch } = useContext(PizzaContext);
 
   useEffect(() => {
     localStorage.removeItem("userName");
@@ -14,9 +13,9 @@ const Login = () => {
     localStorage.removeItem("pizzaAppState");
     localStorage.removeItem("orderId");
     setUserName("");
-    dispatch({
-      type: "CLEAR_CART",
-    });
+    // dispatch({
+    //   type: "CLEAR_CART",
+    // });
   }, []);
 
   return (

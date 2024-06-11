@@ -2,45 +2,20 @@ import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer.jsx";
 import Header from "../components/Header.jsx";
-import { PizzaContext } from "../context/PizzaProvider.jsx";
 import { UserContext } from "../context/UserNameProvider.jsx";
 import "../styles/cart.css";
 
 const Cart = () => {
-  const { state, dispatch } = useContext(PizzaContext);
   const { userName } = useContext(UserContext);
   const navigate = useNavigate();
 
-  const handleDecrement = (id) => {
-    dispatch({
-      type: "DECREMENT_PIZZA",
-      payload: id,
-    });
-  };
-
-  const handleIncrement = (id) => {
-    dispatch({
-      type: "INCREMENT_PIZZA",
-      payload: id,
-    });
-  };
-
-  const handleDelete = (id) => {
-    dispatch({
-      type: "DELETE_PIZZA",
-      payload: id,
-    });
-  };
-
-  const handleClearingCart = () => {
-    dispatch({
-      type: "CLEAR_CART",
-    });
-  };
+  const handleDelete = () => {};
 
   const handleOrder = () => {
     navigate("/pizzas-app/order/new");
   };
+
+  const handleClearingCart = () => {};
 
   const formattedUserName =
     userName.charAt(0).toUpperCase() + userName.slice(1);
@@ -71,20 +46,12 @@ const Cart = () => {
                     <p className="cart__total">
                       €{item.totalPriceOfItem.toFixed(2)}
                     </p>
-                    <button
-                      className="cart__btn_counter"
-                      onClick={() => handleDecrement(item.id)}>
-                      -
-                    </button>
+                    <button className="cart__btn_counter">-</button>
                     <p className="cart__order_element">{item.qty}</p>
-                    <button
-                      className="cart__btn_counter"
-                      onClick={() => handleIncrement(item.id)}>
-                      +
-                    </button>
+                    <button className="cart__btn_counter">+</button>
                     <button
                       className="cart__btn_delete"
-                      onClick={() => handleDelete(item.id)}>
+                      onClick={() => handleDelete()}>
                       DELETE
                     </button>
                   </div>
