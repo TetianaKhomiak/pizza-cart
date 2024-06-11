@@ -6,6 +6,7 @@ import { calculateTimeDifference, formatDate } from "../utils.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { usePostOrderMutation } from "../api/apiSlice.jsx";
 import { setCart } from "../redux/cartSlice.jsx";
+import { useNavigate } from "react-router-dom";
 
 const OrderDetails = () => {
   const { orderId, setOrderId } = useContext(OrderSearchContext);
@@ -14,6 +15,26 @@ const OrderDetails = () => {
   const cart = useSelector((state) => state.cart.currentCart);
   const [postOrder] = usePostOrderMutation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handlePriority = async () => {
+    const orderPayload = {
+      ...cart.data,
+      priority: true,
+    };
+
+    try {
+      const response = await postOrder(orderPayload).unwrap();
+      dispatch(setCart(response));
+      setOrderId(response.data.id);
+      navigate(`/pizzas-app/order/${response.data.id}`);
+    } catch (e) {
+      console.log(e.message);
+      setError(
+        "Some issues have occurred 😔 Please, contact us on 000 555 33 22"
+      );
+    }
+  };
 
   return (
     <div>
@@ -27,7 +48,9 @@ const OrderDetails = () => {
           <>
             <div className="order-details__wrapper">
               <div className="order-details__header">
-                <h2 className="order-details__title">Order status:</h2>
+                <h2 className="order-details__title">
+                  Order {cart.data.id} status: {cart.data.status}
+                </h2>
                 {!cart.data.priority ? (
                   <p className="order-details__title_green">PREPARING ORDER</p>
                 ) : (
@@ -71,13 +94,12 @@ const OrderDetails = () => {
                   })}
               </div>
               <div>
-                {/* {!cart.data.priority ? (
+                {!cart.data.priority ? (
                   <div>
                     <div className="order-details__price">
                       <p>Price pizza: €{cart.data.orderPrice.toFixed(2)} </p>
                       <p className="order-details__price_text">
-                        To pay on delivery: €
-                        {totalItemsPrice.toFixed(2)}
+                        To pay on delivery: €{totalItemsPrice.toFixed(2)}
                       </p>
                     </div>
                     <button
@@ -93,10 +115,11 @@ const OrderDetails = () => {
                       Price priority: €{cart.data.priorityPrice}
                     </p>
                     <p className="order-details__price_text">
-                      To pay on delivery: €{totalAmount}
+                      To pay on delivery: €
+                      {cart.data.orderPrice + cart.data.priorityPrice}
                     </p>
                   </div>
-                )} */}
+                )}
               </div>
             </div>
           </>
