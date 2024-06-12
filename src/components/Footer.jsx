@@ -30,7 +30,9 @@ const Footer = () => {
         </div>
       </div>
 
-      <Link className="footer__link" to="/pizzas-app/cart">
+      <Link
+        className="footer__link"
+        to="/pizza-app-redux-toolkit-rtk-query/cart">
         OPEN CART →
       </Link>
     </div>

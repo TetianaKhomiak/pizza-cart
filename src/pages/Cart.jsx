@@ -31,7 +31,9 @@ const Cart = () => {
         <Header className="cart__header" />
       </div>
       <div className="cart">
-        <Link className="cart__link" to="/pizzas-app/menu">
+        <Link
+          className="cart__link"
+          to="/pizza-app-redux-toolkit-rtk-query/menu">
           ← Back to menu
         </Link>
         {items.length === 0 ? (
