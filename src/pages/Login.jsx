@@ -2,20 +2,20 @@ import React, { useContext, useEffect } from "react";
 import FormLogin from "../components/FormLogin.jsx";
 import Header from "../components/Header.jsx";
 import { UserContext } from "../context/UserNameProvider.jsx";
+import { useDispatch } from "react-redux";
+import { resetCart } from "../redux/cartSlice.jsx";
+import { resetCounter } from "../redux/counterSlice.jsx";
 
 const Login = () => {
   const { setUserName } = useContext(UserContext);
-  //const { dispatch } = useContext(PizzaContext);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     localStorage.removeItem("userName");
-    localStorage.removeItem("dataResponse");
-    localStorage.removeItem("pizzaAppState");
     localStorage.removeItem("orderId");
+    dispatch(resetCart());
+    dispatch(resetCounter());
     setUserName("");
-    // dispatch({
-    //   type: "CLEAR_CART",
-    // });
   }, []);
 
   return (

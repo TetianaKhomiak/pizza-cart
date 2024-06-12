@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { usePostOrderMutation } from "../api/apiSlice.jsx";
@@ -10,15 +10,15 @@ import { calculateTimeDifference, formatDate } from "../utils.jsx";
 
 const OrderDetails = () => {
   const { orderId, setOrderId } = useContext(OrderSearchContext);
-  const cart = useSelector((state) => state.cart.currentCart.data);
   const [postOrder, { isError }] = usePostOrderMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const cart = useSelector((state) => state.cart.currentCart.data);
   const priorityPrice = cart.priorityPrice;
   const orderPrice = cart.orderPrice;
   const finalItemsPrice = cart.priority
-    ? (orderPrice + priorityPrice).toFixed(2)
-    : orderPrice.toFixed(2);
+    ? orderPrice + priorityPrice
+    : orderPrice;
 
   const handlePriority = async () => {
     const orderPayload = {
@@ -106,7 +106,7 @@ const OrderDetails = () => {
                     <div className="order-details__price">
                       <p>Price pizza: €{orderPrice.toFixed(2)} </p>
                       <p className="order-details__price_text">
-                        To pay on delivery: €{finalItemsPrice}
+                        To pay on delivery: €{finalItemsPrice.toFixed(2)}
                       </p>
                     </div>
                     <button
@@ -122,7 +122,7 @@ const OrderDetails = () => {
                       Price priority: €{priorityPrice.toFixed(2)}
                     </p>
                     <p className="order-details__price_text">
-                      To pay on delivery: €{finalItemsPrice}
+                      To pay on delivery: €{finalItemsPrice.toFixed(2)}
                     </p>
                   </div>
                 )}

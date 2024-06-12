@@ -1,11 +1,11 @@
 import React from "react";
 import { Bars } from "react-loader-spinner";
+import { useSelector } from "react-redux";
+import { useFetchAllPizzasQuery } from "../api/apiSlice.jsx";
 import Footer from "../components/Footer.jsx";
 import Header from "../components/Header.jsx";
 import PizzaItem from "../components/PizzaItem.jsx";
-import { useFetchAllPizzasQuery } from "../api/apiSlice.jsx";
 import "../styles/menu.css";
-import { useSelector } from "react-redux";
 
 function Menu() {
   const {

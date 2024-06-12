@@ -8,17 +8,19 @@ import Input from "../components/Input.jsx";
 import { UserContext } from "../context/UserNameProvider.jsx";
 import { setCart } from "../redux/cartSlice.jsx";
 import { orderSchema } from "../schema/orderSchema.jsx";
+import { OrderSearchContext } from "../context/OrderSearchProvider.jsx";
 
 const FormOrder = () => {
+  const { orderId, setOrderId } = useContext(OrderSearchContext);
+  const items = useSelector((state) => state.counter.items);
+  const cart = useSelector((state) => state.cart.currentCart);
+  const totalItemsPrice = useSelector((state) => state.counter.totalItemsPrice);
   const { userName } = useContext(UserContext);
   const [isPrioritized, setIsPrioritized] = useState(false);
+  const [finalPrice, setFinalPrice] = useState(totalItemsPrice);
   const [postOrder, { isError }] = usePostOrderMutation();
-  const items = useSelector((state) => state.counter.items);
-  const totalItemsPrice = useSelector((state) => state.counter.totalItemsPrice);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [finalPrice, setFinalPrice] = useState(totalItemsPrice);
-  const cart = useSelector((state) => state.cart.currentCart);
 
   const {
     handleSubmit,
@@ -101,13 +103,14 @@ const FormOrder = () => {
         if (response.status !== "success") {
           throw new Error("Error");
         }
-
+        setOrderId(response.data.id);
         dispatch(setCart(response));
         navigate(`/pizzas-app/order/${response.data.id}`);
       } catch (e) {
         console.error(e);
       }
     } else {
+      setOrderId(response.data.id);
       navigate(`/pizzas-app/order/${cart.data.id}`);
     }
   };

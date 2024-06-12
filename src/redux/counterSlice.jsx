@@ -5,7 +5,7 @@ export const itemsKey = "items";
 export const totalItemsAmountKey = "totalItemsAmount";
 export const totalItemsPriceKey = "totalItemsPrice";
 
-const initialState = {
+let initialState = {
   items: JSON.parse(localStorage.getItem(itemsKey)) ?? [],
   totalItemsAmount: JSON.parse(localStorage.getItem(totalItemsAmountKey)) ?? 0,
   totalItemsPrice: JSON.parse(localStorage.getItem(totalItemsPriceKey)) ?? 0,
@@ -64,6 +64,12 @@ export const counterSlice = createSlice({
       state.totalItemsAmount = 0;
       state.totalItemsPrice = 0;
     },
+    resetCounter: () =>
+      (initialState = {
+        items: [],
+        totalItemsAmount: 0,
+        totalItemsPrice: 0,
+      }),
   },
 });
 
@@ -74,4 +80,5 @@ export const {
   deleteItem,
   resetItemAmount,
   clearCart,
+  resetCounter,
 } = counterSlice.actions;

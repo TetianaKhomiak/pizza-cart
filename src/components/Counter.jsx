@@ -1,11 +1,11 @@
 import React from "react";
-import Button from "./Button";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addItem,
   decrementItemAmount,
   resetItemAmount,
 } from "../redux/counterSlice";
+import Button from "./Button";
 
 const Counter = ({ pizza }) => {
   const dispatch = useDispatch();

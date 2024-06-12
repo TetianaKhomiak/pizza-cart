@@ -1,16 +1,16 @@
 import { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer.jsx";
 import Header from "../components/Header.jsx";
 import { UserContext } from "../context/UserNameProvider.jsx";
-import "../styles/cart.css";
-import { useSelector, useDispatch } from "react-redux";
 import {
   addItem,
+  clearCart,
   decrementItemAmount,
   deleteItem,
-  clearCart,
 } from "../redux/counterSlice.jsx";
+import "../styles/cart.css";
 
 const Cart = () => {
   const { userName } = useContext(UserContext);
