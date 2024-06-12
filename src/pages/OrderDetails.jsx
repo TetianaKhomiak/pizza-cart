@@ -10,7 +10,6 @@ import { calculateTimeDifference, formatDate } from "../utils.jsx";
 
 const OrderDetails = () => {
   const { orderId, setOrderId } = useContext(OrderSearchContext);
-  //const [error, setError] = useState("");
   const cart = useSelector((state) => state.cart.currentCart.data);
   const [postOrder, { isError }] = usePostOrderMutation();
   const dispatch = useDispatch();
@@ -93,9 +92,9 @@ const OrderDetails = () => {
                             </span>
                             {item.name}
                           </p>
-                          {/* <p className="order-details__item_bold">
+                          <p className="order-details__item_bold">
                             €{item.totalPrice.toFixed(2)}
-                          </p> */}
+                          </p>
                         </div>
                       </div>
                     );
@@ -105,7 +104,7 @@ const OrderDetails = () => {
                 {!cart.priority ? (
                   <div>
                     <div className="order-details__price">
-                      <p>Price pizza: €{orderPrice} </p>
+                      <p>Price pizza: €{orderPrice.toFixed(2)} </p>
                       <p className="order-details__price_text">
                         To pay on delivery: €{finalItemsPrice}
                       </p>
@@ -118,9 +117,9 @@ const OrderDetails = () => {
                   </div>
                 ) : (
                   <div className="order-details__price">
-                    <p>Price pizza: €{orderPrice} </p>
+                    <p>Price pizza: €{orderPrice.toFixed(2)} </p>
                     <p className="order-details__price_regular">
-                      Price priority: €{priorityPrice}
+                      Price priority: €{priorityPrice.toFixed(2)}
                     </p>
                     <p className="order-details__price_text">
                       To pay on delivery: €{finalItemsPrice}

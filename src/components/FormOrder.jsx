@@ -51,7 +51,7 @@ const FormOrder = () => {
           pizzaId: item.id,
           name: item.name,
           quantity: item.qty,
-          // totalPrice: item.totalPriceOfItem,
+          totalPrice: item.totalItemPrice,
           unitPrice: item.unitPrice,
           ingredients: item.ingredients,
         })),
@@ -86,7 +86,7 @@ const FormOrder = () => {
           pizzaId: item.id,
           name: item.name,
           quantity: item.qty,
-          // totalPrice: item.totalPriceOfItem,
+          totalPrice: item.totalItemPrice,
           unitPrice: item.unitPrice,
           ingredients: item.ingredients,
         })),
@@ -188,7 +188,7 @@ const FormOrder = () => {
               </button>
             ) : (
               <button className="order__btn">
-                ORDER NOW FOR €{totalItemsPrice}
+                ORDER NOW FOR €{totalItemsPrice.toFixed(2)}
               </button>
             )}
           </form>

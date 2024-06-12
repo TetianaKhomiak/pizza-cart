@@ -48,9 +48,9 @@ const Cart = () => {
                     {item.qty}× {item.name}
                   </p>
                   <div className="cart__order_wrapper">
-                    {/* <p className="cart__total">
-                      €{item.totalPriceOfItem.toFixed(2)}
-                    </p> */}
+                    <p className="cart__total">
+                      €{item.totalItemPrice.toFixed(2)}
+                    </p>
                     <button
                       onClick={() => dispatch(decrementItemAmount(item))}
                       className="cart__btn_counter">
