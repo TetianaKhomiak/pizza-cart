@@ -191,7 +191,7 @@ const FormOrder = () => {
             </div>
             {isPrioritized ? (
               <button className="order__btn">
-                ORDER NOW FOR €{finalPrice}
+                ORDER NOW FOR €{finalPrice.toFixed(2)}
               </button>
             ) : (
               <button className="order__btn">
