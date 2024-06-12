@@ -1,7 +1,49 @@
-import { configureStore } from "@reduxjs/toolkit";
+import {
+  configureStore,
+  createListenerMiddleware,
+  isAnyOf,
+} from "@reduxjs/toolkit";
 import { apiSlice } from "./apiSlice";
-import counterReducer from "../redux/counterSlice";
-import cartReducer from "../redux/cartSlice";
+import counterReducer, {
+  addItem,
+  decrementItemAmount,
+  deleteItem,
+  resetItemAmount,
+  clearCart,
+  itemsKey,
+  totalItemsAmountKey,
+  totalItemsPriceKey,
+} from "../redux/counterSlice";
+import cartReducer, { setCart, currentCartKey } from "../redux/cartSlice";
+
+const localStorageMiddleware = createListenerMiddleware();
+
+localStorageMiddleware.startListening({
+  matcher: isAnyOf(
+    addItem,
+    decrementItemAmount,
+    deleteItem,
+    resetItemAmount,
+    clearCart,
+    setCart
+  ),
+  effect: (action, listenerApi) => {
+    const state = listenerApi.getState();
+    localStorage.setItem(itemsKey, JSON.stringify(state.counter.items));
+    localStorage.setItem(
+      totalItemsAmountKey,
+      JSON.stringify(state.counter.totalItemsAmount)
+    );
+    localStorage.setItem(
+      totalItemsPriceKey,
+      JSON.stringify(state.counter.totalItemsPrice)
+    );
+    localStorage.setItem(
+      currentCartKey,
+      JSON.stringify(state.cart.currentCart)
+    );
+  },
+});
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +52,8 @@ export const store = configureStore({
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(apiSlice.middleware),
+    getDefaultMiddleware().concat(
+      localStorageMiddleware.middleware,
+      apiSlice.middleware
+    ),
 });

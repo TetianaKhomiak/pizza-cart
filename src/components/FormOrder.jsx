@@ -67,7 +67,9 @@ const FormOrder = () => {
 
         dispatch(setCart(response));
         setIsPrioritized(!isPrioritized);
-        setFinalPrice(totalItemsPrice + response.data.priorityPrice);
+        setFinalPrice(
+          (totalItemsPrice + response.data.priorityPrice).toFixed(2)
+        );
       } catch (e) {
         console.error(e);
       }

@@ -1,10 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { calcTotlaItems, calcTotlaPrice } from "../utils";
 
+export const itemsKey = "items";
+export const totalItemsAmountKey = "totalItemsAmount";
+export const totalItemsPriceKey = "totalItemsPrice";
+
 const initialState = {
-  items: [],
-  totalItemsAmount: 0,
-  totalItemsPrice: 0,
+  items: JSON.parse(localStorage.getItem(itemsKey)) ?? [],
+  totalItemsAmount: JSON.parse(localStorage.getItem(totalItemsAmountKey)) ?? 0,
+  totalItemsPrice: JSON.parse(localStorage.getItem(totalItemsPriceKey)) ?? 0,
 };
 
 export const counterSlice = createSlice({
