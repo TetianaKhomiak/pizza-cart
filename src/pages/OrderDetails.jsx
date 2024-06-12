@@ -1,18 +1,18 @@
 import React, { useContext, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { usePostOrderMutation } from "../api/apiSlice.jsx";
 import Header from "../components/Header";
 import { OrderSearchContext } from "../context/OrderSearchProvider.jsx";
+import { setCart } from "../redux/cartSlice.jsx";
 import "../styles/orderDetails.css";
 import { calculateTimeDifference, formatDate } from "../utils.jsx";
-import { useSelector, useDispatch } from "react-redux";
-import { usePostOrderMutation } from "../api/apiSlice.jsx";
-import { setCart } from "../redux/cartSlice.jsx";
-import { useNavigate } from "react-router-dom";
 
 const OrderDetails = () => {
   const { orderId, setOrderId } = useContext(OrderSearchContext);
-  const [error, setError] = useState("");
+  //const [error, setError] = useState("");
   const cart = useSelector((state) => state.cart.currentCart.data);
-  const [postOrder] = usePostOrderMutation();
+  const [postOrder, { isError }] = usePostOrderMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const priorityPrice = cart.priorityPrice;
@@ -29,14 +29,16 @@ const OrderDetails = () => {
 
     try {
       const response = await postOrder(orderPayload).unwrap();
+
+      if (response.status !== "success") {
+        throw new Error("Error");
+      }
+
       dispatch(setCart(response));
       setOrderId(response.data.id);
       navigate(`/pizzas-app/order/${response.data.id}`);
     } catch (e) {
-      console.log(e.message);
-      setError(
-        "Some issues have occurred 😔 Please, contact us on 000 555 33 22"
-      );
+      console.error(e);
     }
   };
 
@@ -46,8 +48,10 @@ const OrderDetails = () => {
         <Header className="order__header" />
       </div>
       <>
-        {error ? (
-          <p className="order-details__error">{error}</p>
+        {isError ? (
+          <p className="order-details__error">
+            "Some issues have occurred 😔 Please, contact us on 000 555 33 22"
+          </p>
         ) : (
           <>
             <div className="order-details__wrapper">
