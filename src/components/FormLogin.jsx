@@ -24,7 +24,7 @@ function FormLogin() {
   });
 
   const handleFormSubmit = () => {
-    navigate("/pizzas-app/menu");
+    navigate("/pizza-app-redux-toolkit-rtk-query/menu");
   };
 
   return (

@@ -17,9 +17,9 @@ function Header({ className }) {
     const timeoutId = setTimeout(() => {
       if (value.trim() !== "") {
         if (orderId.includes(value.trim())) {
-          navigate(`/pizzas-app/order/${value.trim()}`);
+          navigate(`/pizza-app-redux-toolkit-rtk-query/order/${value.trim()}`);
         } else {
-          navigate("/pizzas-app/order/not-found");
+          navigate("/pizza-app-redux-toolkit-rtk-query/order/not-found");
         }
       }
     }, 1500);
@@ -28,7 +28,7 @@ function Header({ className }) {
 
   return (
     <header className={className}>
-      <a className="logo" href="/pizzas-app/menu">
+      <a className="logo" href="/pizza-app-redux-toolkit-rtk-query/menu">
         Pizza Day
       </a>
 

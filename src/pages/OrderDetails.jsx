@@ -35,7 +35,7 @@ const OrderDetails = () => {
 
       dispatch(setCart(response));
       setOrderId(response.data.id);
-      navigate(`/pizzas-app/order/${response.data.id}`);
+      navigate(`/pizza-app-redux-toolkit-rtk-query/order/${response.data.id}`);
     } catch (e) {
       console.error(e);
     }

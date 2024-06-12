@@ -105,13 +105,15 @@ const FormOrder = () => {
         }
         setOrderId(response.data.id);
         dispatch(setCart(response));
-        navigate(`/pizzas-app/order/${response.data.id}`);
+        navigate(
+          `/pizza-app-redux-toolkit-rtk-query/order/${response.data.id}`
+        );
       } catch (e) {
         console.error(e);
       }
     } else {
       setOrderId(response.data.id);
-      navigate(`/pizzas-app/order/${cart.data.id}`);
+      navigate(`/pizza-app-redux-toolkit-rtk-query/order/${cart.data.id}`);
     }
   };
 

@@ -19,7 +19,7 @@ const Cart = () => {
   const navigate = useNavigate();
 
   const handleOrderPizzas = () => {
-    navigate("/pizzas-app/order/new");
+    navigate("/pizza-app-redux-toolkit-rtk-query/order/new");
   };
 
   const formattedUserName =
