@@ -1,9 +1,9 @@
 # pizzas-app
 
 ## Webpage Preview
-> [https://tetianakhomiak.github.io/pizza-app-redux-toolkit-rtk-query/]
+> https://tetianakhomiak.github.io/pizza-app-redux-toolkit-rtk-query/
 
- ## Features 📋                                                                                                                                                          
+ ## Tools 📋                                                                                                                                                          
  ⚡️ React + Vite                                                                                                                                                     
  ⚡️ Responsive                                                                                                                                                          
  ⚡️ Redux Toolkit                                                                                                                                                        
