@@ -10,7 +10,7 @@ import Order from "./pages/Order.jsx";
 import OrderDetails from "./pages/OrderDetails.jsx";
 import OrderNotFound from "./pages/OrderNotFound.jsx";
 import PageNotFound from "./pages/PageNotFound.jsx";
-import OrderSearch from "./context/OrderSearchProvider.jsx";
+import OrderDetailsProvider from "./context/OrderDetailsProvider.jsx";
 import UserNameProvider from "./context/UserNameProvider.jsx";
 import { store } from "./api/store.jsx";
 import { Provider } from "react-redux";
@@ -55,11 +55,11 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
-      <OrderSearch>
+      <OrderDetailsProvider>
         <UserNameProvider>
           <RouterProvider router={router} />
         </UserNameProvider>
-      </OrderSearch>
+      </OrderDetailsProvider>
     </Provider>
   </React.StrictMode>
 );

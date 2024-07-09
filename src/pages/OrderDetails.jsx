@@ -1,28 +1,31 @@
 import React, { useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { usePostOrderMutation } from "../api/apiSlice.jsx";
 import Header from "../components/Header";
-import { OrderSearchContext } from "../context/OrderSearchProvider.jsx";
-import { setCart } from "../redux/cartSlice.jsx";
+import { OrderDetailsContext } from "../context/OrderDetailsProvider.jsx";
 import "../styles/orderDetails.css";
 import { calculateTimeDifference, formatDate } from "../utils.jsx";
 
 const OrderDetails = () => {
-  const { orderId, setOrderId } = useContext(OrderSearchContext);
+  const { orderId, setOrderId, orderDetails, setOrderDetails } =
+    useContext(OrderDetailsContext);
+
+  const currentOrder = orderDetails.find((item) => item.id === orderId);
+
   const [postOrder, { isError }] = usePostOrderMutation();
-  const dispatch = useDispatch();
+
   const navigate = useNavigate();
-  const cart = useSelector((state) => state.cart.currentCart.data);
-  const priorityPrice = cart.priorityPrice;
-  const orderPrice = cart.orderPrice;
-  const finalItemsPrice = cart.priority
+  const priorityPrice = currentOrder.priorityPrice;
+  const orderPrice = currentOrder.orderPrice;
+  const finalItemsPrice = currentOrder.priority
     ? orderPrice + priorityPrice
     : orderPrice;
 
+  console.log(orderDetails);
+
   const handlePriority = async () => {
     const orderPayload = {
-      ...cart,
+      ...currentOrder,
       priority: true,
     };
 
@@ -33,7 +36,12 @@ const OrderDetails = () => {
         throw new Error("Error");
       }
 
-      dispatch(setCart(response));
+      setOrderDetails((prevOrderDetails) => {
+        const updatedOrderDetails = prevOrderDetails.filter(
+          (order) => order.id !== orderId
+        );
+        return [...updatedOrderDetails, response.data];
+      });
       setOrderId(response.data.id);
       navigate(`/pizza-app-redux-toolkit-rtk-query/order/${response.data.id}`);
     } catch (e) {
@@ -56,9 +64,9 @@ const OrderDetails = () => {
             <div className="order-details__wrapper">
               <div className="order-details__header">
                 <h2 className="order-details__title">
-                  Order {cart.id} status: {cart.status}
+                  Order {currentOrder.id} status: {currentOrder.status}
                 </h2>
-                {!cart.priority ? (
+                {!currentOrder.priority ? (
                   <p className="order-details__title_green">PREPARING ORDER</p>
                 ) : (
                   <div className="order-details__priority">
@@ -69,20 +77,20 @@ const OrderDetails = () => {
               </div>
               <div className="order-details__time">
                 <p className="order-details__time_big">
-                  Only {calculateTimeDifference(cart.estimatedDelivery)}
+                  Only {calculateTimeDifference(currentOrder.estimatedDelivery)}
                   <span className="order-details__time_margin">minutes</span>
                   <span className="order-details__time_margin"> left </span>😃
                 </p>
                 <p className="order-details__time_small">
                   (Estimated delivery:
-                  {formatDate(cart.estimatedDelivery)})
+                  {formatDate(currentOrder.estimatedDelivery)})
                 </p>
               </div>
               <div>
                 <hr className="order-details__line" />
-                {cart &&
-                  cart.cart &&
-                  cart.cart.map((item) => {
+                {currentOrder &&
+                  currentOrder.cart &&
+                  currentOrder.cart.map((item) => {
                     return (
                       <div key={item.pizzaId}>
                         <div className="order-details__item">
@@ -101,7 +109,7 @@ const OrderDetails = () => {
                   })}
               </div>
               <div>
-                {!cart.priority ? (
+                {!currentOrder.priority ? (
                   <div>
                     <div className="order-details__price">
                       <p>Price pizza: €{orderPrice.toFixed(2)} </p>

@@ -5,17 +5,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { usePostOrderMutation } from "../api/apiSlice.jsx";
 import Input from "../components/Input.jsx";
+import { OrderDetailsContext } from "../context/OrderDetailsProvider.jsx";
 import { UserContext } from "../context/UserNameProvider.jsx";
-import { setCart } from "../redux/cartSlice.jsx";
+import { resetCart, setCart } from "../redux/cartSlice.jsx";
+import { clearCart } from "../redux/counterSlice.jsx";
 import { orderSchema } from "../schema/orderSchema.jsx";
-import { OrderSearchContext } from "../context/OrderSearchProvider.jsx";
 
 const FormOrder = () => {
-  const { orderId, setOrderId } = useContext(OrderSearchContext);
+  const { userName } = useContext(UserContext);
+  const { setOrderId, setOrderDetails } = useContext(OrderDetailsContext);
   const items = useSelector((state) => state.counter.items);
   const cart = useSelector((state) => state.cart.currentCart);
   const totalItemsPrice = useSelector((state) => state.counter.totalItemsPrice);
-  const { userName } = useContext(UserContext);
   const [isPrioritized, setIsPrioritized] = useState(false);
   const [finalPrice, setFinalPrice] = useState(totalItemsPrice);
   const [postOrder, { isError }] = usePostOrderMutation();
@@ -79,41 +80,41 @@ const FormOrder = () => {
   };
 
   const onSubmit = async (data) => {
-    if (isPrioritized == false) {
-      const orderPayload = {
-        address: data.address,
-        customer: data.firstName,
-        phone: data.phoneNumber,
-        priority: isPrioritized,
-        position: "",
-        cart: items.map((item) => ({
-          pizzaId: item.id,
-          name: item.name,
-          quantity: item.qty,
-          totalPrice: item.totalItemPrice,
-          unitPrice: item.unitPrice,
-          ingredients: item.ingredients,
-        })),
-      };
+    const orderPayload = {
+      address: data.address,
+      customer: data.firstName,
+      phone: data.phoneNumber,
+      priority: isPrioritized ? true : false,
+      position: "",
+      cart: items.map((item) => ({
+        pizzaId: item.id,
+        name: item.name,
+        quantity: item.qty,
+        totalPrice: item.totalItemPrice,
+        unitPrice: item.unitPrice,
+        ingredients: item.ingredients,
+      })),
+    };
 
-      try {
-        const response = await postOrder(orderPayload).unwrap();
-        console.log(response);
+    try {
+      const response = await postOrder(orderPayload).unwrap();
+      console.log(response);
 
-        if (response.status !== "success") {
-          throw new Error("Error");
-        }
-        setOrderId(response.data.id);
-        dispatch(setCart(response));
-        navigate(
-          `/pizza-app-redux-toolkit-rtk-query/order/${response.data.id}`
-        );
-      } catch (e) {
-        console.error(e);
+      if (response.status !== "success") {
+        throw new Error("Error");
       }
-    } else {
+
       setOrderId(response.data.id);
-      navigate(`/pizza-app-redux-toolkit-rtk-query/order/${cart.data.id}`);
+      setOrderDetails((prevOrderDetails) => [
+        ...prevOrderDetails,
+        response.data,
+      ]);
+
+      navigate(`/pizza-app-redux-toolkit-rtk-query/order/${response.data.id}`);
+      dispatch(clearCart());
+      dispatch(resetCart());
+    } catch (e) {
+      console.error(e);
     }
   };
 

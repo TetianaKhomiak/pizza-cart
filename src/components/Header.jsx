@@ -1,11 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { OrderSearchContext } from "../context/OrderSearchProvider.jsx";
+import { OrderDetailsContext } from "../context/OrderDetailsProvider.jsx";
 import { UserContext } from "../context/UserNameProvider.jsx";
 
 function Header({ className }) {
   const { userName } = useContext(UserContext);
-  const { orderId } = useContext(OrderSearchContext);
+  const { setOrderId } = useContext(OrderDetailsContext);
+  const { orderDetails } = useContext(OrderDetailsContext);
+
   const [value, setValue] = useState("");
   const navigate = useNavigate();
 
@@ -13,13 +15,18 @@ function Header({ className }) {
     setValue(e.target.value);
   };
 
+  const isOrderExist = orderDetails.find((item) => item.id === value.trim());
+
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (value.trim() !== "") {
-        if (orderId.includes(value.trim())) {
+        if (isOrderExist) {
+          setOrderId(value.trim());
           navigate(`/pizza-app-redux-toolkit-rtk-query/order/${value.trim()}`);
+          setValue("");
         } else {
           navigate("/pizza-app-redux-toolkit-rtk-query/order/not-found");
+          setValue("");
         }
       }
     }, 1500);
