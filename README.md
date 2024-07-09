@@ -7,5 +7,5 @@
  ⚡️ React + Vite                                                                                                                                                     
  ⚡️ Responsive                                                                                                                                                          
  ⚡️ Redux Toolkit                                                                                                                                                        
- ⚡️ RTK Query
+ ⚡️ RTK Query                                                                                                                                                        
  ⚡️ Zod
