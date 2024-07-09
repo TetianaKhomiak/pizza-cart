@@ -1,6 +1,6 @@
 # pizzas-app
 
-## 🌍 Webpage Preview 
+## 🌐 Webpage Preview 
 > https://tetianakhomiak.github.io/pizza-app-redux-toolkit-rtk-query/
 
  ## 💻  Toolkit                                                                                                                                                       
