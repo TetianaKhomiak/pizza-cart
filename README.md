@@ -8,3 +8,4 @@
  ⚡️ Responsive                                                                                                                                                          
  ⚡️ Redux Toolkit                                                                                                                                                        
  ⚡️ RTK Query
+ ⚡️ Zod
