@@ -3,8 +3,8 @@
 ## Webpage Preview
 > https://tetianakhomiak.github.io/pizza-app-redux-toolkit-rtk-query/
 
- ## Tools 📋                                                                                                                                                          
- ⚡️ React + Vite                                                                                                                                                     
+ ## Toolkit💻                                                                                                                                                        
+ ⚡️ React                                                                                                                                                                 ⚡️ CSS3                   
  ⚡️ Responsive                                                                                                                                                          
  ⚡️ Redux Toolkit                                                                                                                                                        
  ⚡️ RTK Query                                                                                                                                                        
