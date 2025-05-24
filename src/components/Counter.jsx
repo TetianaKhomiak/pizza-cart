@@ -7,8 +7,8 @@ import {
 import Button from "./Button";
 
 const Counter = ({ pizza }) => {
-  const dispatch = useAppSelector();
-  const items = useAppDispatch((state) => state.counter.items);
+  const dispatch = useAppDispatch();
+  const items = useAppSelector((state) => state.counter.items);
   const counter = items.find((item) => item.id === pizza.id)?.qty;
 
   return (

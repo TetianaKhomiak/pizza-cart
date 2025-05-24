@@ -27,7 +27,7 @@ localStorageMiddleware.startListening({
     clearCart,
     setCart
   ),
-  effect: (action, listenerApi) => {
+  effect: (_, listenerApi) => {
     const state = listenerApi.getState() as RootState;
     localStorage.setItem(itemsKey, JSON.stringify(state.counter.items));
     localStorage.setItem(

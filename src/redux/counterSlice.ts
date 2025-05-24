@@ -19,7 +19,7 @@ export const counterSlice = createSlice({
   name: "counter",
   initialState,
   reducers: {
-    addItem: (state: CounterState, action: PayloadAction<CartItem>) => {
+    addItem: (state, action: PayloadAction<CartItem>) => {
       const isExisting = state.items.find(
         (item) => item.id === action.payload.id
       );
@@ -36,7 +36,7 @@ export const counterSlice = createSlice({
       state.totalItemsAmount = calcTotalItems(state.items);
       state.totalItemsPrice = calcTotalPrice(state.items);
     },
-    decrementItemAmount: (state: CounterState, action) => {
+    decrementItemAmount: (state, action: PayloadAction<CartItem>) => {
       state.items = state.items.map((item) => {
         if (item.id === action.payload.id) {
           item.qty = item.qty > 1 ? item.qty - 1 : item.qty;
@@ -47,7 +47,7 @@ export const counterSlice = createSlice({
       state.totalItemsAmount = calcTotalItems(state.items);
       state.totalItemsPrice = calcTotalPrice(state.items);
     },
-    resetItemAmount: (state: CounterState, action) => {
+    resetItemAmount: (state, action: PayloadAction<CartItem>) => {
       state.items = state.items.map((item) => {
         if (item.id === action.payload.id) {
           item.qty = 1;
@@ -58,22 +58,21 @@ export const counterSlice = createSlice({
       state.totalItemsAmount = calcTotalItems(state.items);
       state.totalItemsPrice = calcTotalPrice(state.items);
     },
-    deleteItem: (state: CounterState, action) => {
+    deleteItem: (state, action) => {
       state.items = state.items.filter((item) => item.id !== action.payload.id);
       state.totalItemsAmount = calcTotalItems(state.items);
       state.totalItemsPrice = calcTotalPrice(state.items);
     },
-    clearCart: (state: CounterState) => {
+    clearCart: (state) => {
       state.items.length = 0;
       state.totalItemsAmount = 0;
       state.totalItemsPrice = 0;
     },
-    resetCounter: () =>
-      (initialState = {
-        items: [],
-        totalItemsAmount: 0,
-        totalItemsPrice: 0,
-      }),
+    resetCounter: () => ({
+      items: [],
+      totalItemsAmount: 0,
+      totalItemsPrice: 0,
+    }),
   },
 });
 
