@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { Pizza, OrderRequest, OrderResponse } from "../types/types";
 
 export const apiSlice = createApi({
   reducerPath: "api",
@@ -7,11 +8,11 @@ export const apiSlice = createApi({
     baseUrl: "https://react-fast-pizza-api.onrender.com/api",
   }),
   endpoints: (builder) => ({
-    fetchAllPizzas: builder.query({
+    fetchAllPizzas: builder.query<Pizza[], void>({
       query: () => "/menu",
       providesTags: ["Pizzas"],
     }),
-    postOrder: builder.mutation({
+    postOrder: builder.mutation<OrderResponse, OrderRequest>({
       query: (body) => ({
         url: "/order",
         method: "POST",

@@ -14,3 +14,27 @@ export type CounterState = {
 export type CartSliceState = {
   currentCart: CounterState | null;
 };
+
+export interface Pizza {
+  id: number;
+  name: string;
+  unitPrice: number;
+  imageUrl: string;
+  ingredients: string[];
+  soldOut: boolean;
+}
+
+export interface OrderRequest {
+  items: {
+    pizzaId: number;
+    quantity: number;
+  }[];
+  customerName: string;
+  address: string;
+}
+
+export interface OrderResponse {
+  orderId: string;
+  status: string;
+  estimatedDeliveryTime: string;
+}
