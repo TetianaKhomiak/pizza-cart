@@ -1,17 +1,19 @@
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../api/hooks";
 import "../styles/footer.css";
 
 const Footer = () => {
-  const totalItemsAmount = useSelector(
+  const totalItemsAmount = useAppSelector(
     (state) => state.counter.totalItemsAmount
   );
-  const cart = useSelector((state) => state.cart.currentCart);
-  const totalItemsPrice = useSelector((state) => state.counter.totalItemsPrice);
-  const finalItemsPrice =
-    cart && cart.data && cart.data.priority
-      ? (totalItemsPrice + cart.data.priorityPrice).toFixed(2)
-      : totalItemsPrice.toFixed(2);
+  const cart = useAppSelector((state) => state.cart.currentCart);
+  const totalItemsPrice = useAppSelector(
+    (state) => state.counter.totalItemsPrice
+  );
+
+  const finalItemsPrice = cart?.priority
+    ? (totalItemsPrice + (cart.priorityPrice ?? 0)).toFixed(2)
+    : totalItemsPrice.toFixed(2);
 
   return (
     <div className="footer__wrapper">

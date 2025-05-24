@@ -1,21 +1,40 @@
 import { useState } from "react";
-import { useAppDispatch } from "../api/hooks";
+import { useAppDispatch } from "../api/hooks.ts";
 import { addItem, deleteItem } from "../redux/counterSlice.ts";
-import Button from "./Button.jsx";
-import Counter from "./Counter.jsx";
+import Button from "./Button.js";
+import Counter from "./Counter.js";
+import type { PizzaItemProps } from "../types/types.ts";
 
-function PizzaItem({ pizza }) {
+function PizzaItem({ pizza }: PizzaItemProps) {
   const { name, unitPrice, imageUrl, ingredients, soldOut } = pizza;
   const [isAddingCounter, setIsAddingCounter] = useState(false);
   const dispatch = useAppDispatch();
 
   const handleRemoveFromCart = () => {
-    dispatch(deleteItem(pizza));
+    const cartItem = {
+      id: pizza.id,
+      name: pizza.name,
+      unitPrice: pizza.unitPrice,
+      imageUrl: pizza.imageUrl,
+      ingredients: pizza.ingredients,
+      qty: 1,
+      totalItemPrice: pizza.unitPrice,
+    };
+    dispatch(deleteItem(cartItem));
     setIsAddingCounter(false);
   };
 
   const handleAddToCart = () => {
-    dispatch(addItem(pizza));
+    const cartItem = {
+      id: pizza.id,
+      name: pizza.name,
+      unitPrice: pizza.unitPrice,
+      imageUrl: pizza.imageUrl,
+      ingredients: pizza.ingredients,
+      qty: 1,
+      totalItemPrice: pizza.unitPrice,
+    };
+    dispatch(addItem(cartItem));
     setIsAddingCounter(true);
   };
 

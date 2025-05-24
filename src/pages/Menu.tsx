@@ -1,10 +1,9 @@
-import React from "react";
 import { Bars } from "react-loader-spinner";
-import { useAppSelector } from "../api/hooks";
+import { useAppSelector } from "../api/hooks.ts";
 import { useFetchAllPizzasQuery } from "../api/apiSlice.ts";
-import Footer from "../components/Footer.jsx";
-import Header from "../components/Header.jsx";
-import PizzaItem from "../components/PizzaItem.jsx";
+import Footer from "../components/Footer.tsx";
+import Header from "../components/Header.tsx";
+import PizzaItem from "../components/PizzaItem.tsx";
 import "../styles/menu.css";
 
 function Menu() {
@@ -14,6 +13,7 @@ function Menu() {
     isSuccess,
     isError,
   } = useFetchAllPizzasQuery();
+
   const cartItems = useAppSelector((state) => state.counter.items);
 
   let content;
@@ -28,7 +28,7 @@ function Menu() {
         />
       </div>
     );
-  } else if (isSuccess) {
+  } else if (isSuccess && pizzas) {
     content = (
       <ul className="pizza__wrapper_items">
         {pizzas.data.map((pizza) => (

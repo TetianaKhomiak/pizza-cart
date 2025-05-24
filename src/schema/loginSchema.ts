@@ -5,3 +5,5 @@ export const loginSchema = z.object({
     message: "Enter your name",
   }),
 });
+
+export type LoginFormData = z.infer<typeof loginSchema>;

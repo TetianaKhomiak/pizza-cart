@@ -8,7 +8,7 @@ export const apiSlice = createApi({
     baseUrl: "https://react-fast-pizza-api.onrender.com/api",
   }),
   endpoints: (builder) => ({
-    fetchAllPizzas: builder.query<Pizza[], void>({
+    fetchAllPizzas: builder.query<{ data: Pizza[] }, void>({
       query: () => "/menu",
       providesTags: ["Pizzas"],
     }),

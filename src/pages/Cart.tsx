@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { useAppSelector, useAppDispatch } from "../api/hooks";
+import { useAppSelector, useAppDispatch } from "../api/hooks.ts";
 import { Link, useNavigate } from "react-router-dom";
-import Footer from "../components/Footer.jsx";
-import Header from "../components/Header.jsx";
+import Footer from "../components/Footer.tsx";
+import Header from "../components/Header.js";
 import { UserContext } from "../context/UserNameProvider.jsx";
 import {
   addItem,
@@ -17,7 +17,7 @@ const Cart = () => {
   const items = useAppSelector((state) => state.counter.items);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
+  console.log("Cart items:", items);
   const handleOrderPizzas = () => {
     navigate("/pizza-app-redux-toolkit-rtk-query/order/new");
   };
@@ -47,7 +47,7 @@ const Cart = () => {
               {items.map((item) => (
                 <div className="cart__order" key={item.id}>
                   <p className="cart__order_element">
-                    {item.qty}× {item.name}
+                    {item.qty}x {item.name}
                   </p>
                   <div className="cart__order_wrapper">
                     <p className="cart__total">

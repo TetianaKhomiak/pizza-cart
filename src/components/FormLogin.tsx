@@ -3,9 +3,10 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserNameProvider.jsx";
-import { loginSchema } from "../schema/loginSchema.jsx";
-import Button from "./Button.jsx";
-import Input from "./Input.jsx";
+import { loginSchema } from "../schema/loginSchema.ts";
+import type { LoginFormData } from "../schema/loginSchema.ts";
+import Button from "./Button.js";
+import Input from "./Input.tsx";
 
 function FormLogin() {
   const navigate = useNavigate();
@@ -15,14 +16,13 @@ function FormLogin() {
     handleSubmit,
     formState: { errors },
     control,
-  } = useForm({
+  } = useForm<LoginFormData>({
     mode: "onBlur",
     defaultValues: {
       fullName: "",
     },
     resolver: zodResolver(loginSchema),
   });
-
   const handleFormSubmit = () => {
     navigate("/pizza-app-redux-toolkit-rtk-query/menu");
   };

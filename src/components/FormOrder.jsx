@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useAppSelector, useAppDispatch } from "../api/hooks";
 import { useNavigate } from "react-router-dom";
 import { usePostOrderMutation } from "../api/apiSlice.ts";
-import Input from "../components/Input.jsx";
+import Input from "../components/Input.tsx";
 import { OrderDetailsContext } from "../context/OrderDetailsProvider.jsx";
 import { UserContext } from "../context/UserNameProvider.jsx";
 import { resetCart, setCart } from "../redux/cartSlice.ts";
@@ -15,7 +15,6 @@ const FormOrder = () => {
   const { userName } = useContext(UserContext);
   const { setOrderId, setOrderDetails } = useContext(OrderDetailsContext);
   const items = useAppSelector((state) => state.counter.items);
-  // const cart = useAppSelector((state) => state.cart.currentCart);
   const totalItemsPrice = useAppSelector(
     (state) => state.counter.totalItemsPrice
   );
@@ -45,7 +44,6 @@ const FormOrder = () => {
     const isValid = await trigger();
     if (isValid) {
       const data = getValues();
-      console.log(data);
       const orderPayload = {
         address: data.address,
         customer: data.firstName,
@@ -64,13 +62,12 @@ const FormOrder = () => {
 
       try {
         const response = await postOrder(orderPayload).unwrap();
-        console.log(response);
 
         if (response.status !== "success") {
           throw new Error("Error");
         }
-
-        dispatch(setCart(response));
+        console.log(response);
+        dispatch(setCart(response.data));
         setIsPrioritized(!isPrioritized);
         setFinalPrice(
           (totalItemsPrice + response.data.priorityPrice).toFixed(2)

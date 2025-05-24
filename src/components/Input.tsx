@@ -1,4 +1,5 @@
 import { useController } from "react-hook-form";
+import type { InputProps } from "../types/types";
 
 function Input({
   name,
@@ -8,7 +9,7 @@ function Input({
   type,
   setUserName,
   placeholder,
-}) {
+}: InputProps) {
   const { field } = useController({ name, control });
   return (
     <input
