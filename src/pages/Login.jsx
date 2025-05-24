@@ -3,8 +3,8 @@ import FormLogin from "../components/FormLogin.jsx";
 import Header from "../components/Header.jsx";
 import { UserContext } from "../context/UserNameProvider.jsx";
 import { useDispatch } from "react-redux";
-import { resetCart } from "../redux/cartSlice.jsx";
-import { resetCounter } from "../redux/counterSlice.jsx";
+import { resetCart } from "../redux/cartSlice.ts";
+import { resetCounter } from "../redux/counterSlice.ts";
 
 const Login = () => {
   const { setUserName } = useContext(UserContext);

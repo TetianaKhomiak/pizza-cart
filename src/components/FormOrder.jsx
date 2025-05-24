@@ -3,12 +3,12 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { usePostOrderMutation } from "../api/apiSlice.jsx";
+import { usePostOrderMutation } from "../api/apiSlice.ts";
 import Input from "../components/Input.jsx";
 import { OrderDetailsContext } from "../context/OrderDetailsProvider.jsx";
 import { UserContext } from "../context/UserNameProvider.jsx";
-import { resetCart, setCart } from "../redux/cartSlice.jsx";
-import { clearCart } from "../redux/counterSlice.jsx";
+import { resetCart, setCart } from "../redux/cartSlice.ts";
+import { clearCart } from "../redux/counterSlice.ts";
 import { orderSchema } from "../schema/orderSchema.jsx";
 
 const FormOrder = () => {

@@ -12,7 +12,7 @@ import OrderNotFound from "./pages/OrderNotFound.jsx";
 import PageNotFound from "./pages/PageNotFound.jsx";
 import OrderDetailsProvider from "./context/OrderDetailsProvider.jsx";
 import UserNameProvider from "./context/UserNameProvider.jsx";
-import { store } from "./api/store.jsx";
+import { store } from "./api/store.ts";
 import { Provider } from "react-redux";
 
 const router = createBrowserRouter([

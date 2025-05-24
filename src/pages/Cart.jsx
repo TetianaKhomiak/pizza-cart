@@ -9,7 +9,7 @@ import {
   clearCart,
   decrementItemAmount,
   deleteItem,
-} from "../redux/counterSlice.jsx";
+} from "../redux/counterSlice.ts";
 import "../styles/cart.css";
 
 const Cart = () => {

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addItem, deleteItem } from "../redux/counterSlice.jsx";
+import { addItem, deleteItem } from "../redux/counterSlice.ts";
 import Button from "./Button.jsx";
 import Counter from "./Counter.jsx";
 

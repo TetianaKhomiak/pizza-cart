@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { usePostOrderMutation } from "../api/apiSlice.jsx";
+import { usePostOrderMutation } from "../api/apiSlice.ts";
 import Header from "../components/Header";
 import { OrderDetailsContext } from "../context/OrderDetailsProvider.jsx";
 import "../styles/orderDetails.css";
-import { calculateTimeDifference, formatDate } from "../utils.jsx";
+import { calculateTimeDifference, formatDate } from "../utils.ts";
 
 const OrderDetails = () => {
   const { orderId, setOrderId, orderDetails, setOrderDetails } =

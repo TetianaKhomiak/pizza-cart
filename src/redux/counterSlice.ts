@@ -1,21 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { calcTotlaItems, calcTotlaPrice } from "../utils";
+import { calcTotalItems, calcTotalPrice } from "../utils";
+import { CartItem, CounterState } from "../types/types";
+import { PayloadAction } from "@reduxjs/toolkit";
 
-export const itemsKey = "items";
-export const totalItemsAmountKey = "totalItemsAmount";
-export const totalItemsPriceKey = "totalItemsPrice";
+export const itemsKey: string = "items";
+export const totalItemsAmountKey: string = "totalItemsAmount";
+export const totalItemsPriceKey: string = "totalItemsPrice";
 
-let initialState = {
-  items: JSON.parse(localStorage.getItem(itemsKey)) ?? [],
-  totalItemsAmount: JSON.parse(localStorage.getItem(totalItemsAmountKey)) ?? 0,
-  totalItemsPrice: JSON.parse(localStorage.getItem(totalItemsPriceKey)) ?? 0,
+let initialState: CounterState = {
+  items: JSON.parse(localStorage.getItem(itemsKey) ?? "[]"),
+  totalItemsAmount: JSON.parse(
+    localStorage.getItem(totalItemsAmountKey) ?? "0"
+  ),
+  totalItemsPrice: JSON.parse(localStorage.getItem(totalItemsPriceKey) ?? "0"),
 };
 
 export const counterSlice = createSlice({
   name: "counter",
   initialState,
   reducers: {
-    addItem: (state, action) => {
+    addItem: (state: CounterState, action: PayloadAction<CartItem>) => {
       const isExisting = state.items.find(
         (item) => item.id === action.payload.id
       );
@@ -29,10 +33,10 @@ export const counterSlice = createSlice({
           totalItemPrice: action.payload.unitPrice,
         });
       }
-      state.totalItemsAmount = calcTotlaItems(state.items);
-      state.totalItemsPrice = calcTotlaPrice(state.items);
+      state.totalItemsAmount = calcTotalItems(state.items);
+      state.totalItemsPrice = calcTotalPrice(state.items);
     },
-    decrementItemAmount: (state, action) => {
+    decrementItemAmount: (state: CounterState, action) => {
       state.items = state.items.map((item) => {
         if (item.id === action.payload.id) {
           item.qty = item.qty > 1 ? item.qty - 1 : item.qty;
@@ -40,10 +44,10 @@ export const counterSlice = createSlice({
         }
         return item;
       });
-      state.totalItemsAmount = calcTotlaItems(state.items);
-      state.totalItemsPrice = calcTotlaPrice(state.items);
+      state.totalItemsAmount = calcTotalItems(state.items);
+      state.totalItemsPrice = calcTotalPrice(state.items);
     },
-    resetItemAmount: (state, action) => {
+    resetItemAmount: (state: CounterState, action) => {
       state.items = state.items.map((item) => {
         if (item.id === action.payload.id) {
           item.qty = 1;
@@ -51,15 +55,15 @@ export const counterSlice = createSlice({
         }
         return item;
       });
-      state.totalItemsAmount = calcTotlaItems(state.items);
-      state.totalItemsPrice = calcTotlaPrice(state.items);
+      state.totalItemsAmount = calcTotalItems(state.items);
+      state.totalItemsPrice = calcTotalPrice(state.items);
     },
-    deleteItem: (state, action) => {
+    deleteItem: (state: CounterState, action) => {
       state.items = state.items.filter((item) => item.id !== action.payload.id);
-      state.totalItemsAmount = calcTotlaItems(state.items);
-      state.totalItemsPrice = calcTotlaPrice(state.items);
+      state.totalItemsAmount = calcTotalItems(state.items);
+      state.totalItemsPrice = calcTotalPrice(state.items);
     },
-    clearCart: (state) => {
+    clearCart: (state: CounterState) => {
       state.items.length = 0;
       state.totalItemsAmount = 0;
       state.totalItemsPrice = 0;
