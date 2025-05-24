@@ -5,14 +5,14 @@ export type CartItem = {
   totalItemPrice: number;
 };
 
-export type CounterState = {
+export type CounterSliceState = {
   items: CartItem[];
   totalItemsAmount: number;
   totalItemsPrice: number;
 };
 
 export type CartSliceState = {
-  currentCart: CounterState | null;
+  currentCart: CounterSliceState | null;
 };
 
 export interface Pizza {

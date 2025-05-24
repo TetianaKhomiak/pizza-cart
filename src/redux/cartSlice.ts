@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CounterState, CartSliceState } from "../types/types";
+import type { CounterSliceState, CartSliceState } from "../types/types";
 
 export const currentCartKey: string = "currentCart";
 
@@ -13,7 +13,7 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    setCart: (state, action: PayloadAction<CounterState>) => {
+    setCart: (state, action: PayloadAction<CounterSliceState>) => {
       state.currentCart = action.payload;
     },
     resetCart: (state) => {

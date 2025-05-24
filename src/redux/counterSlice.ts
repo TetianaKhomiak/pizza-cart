@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { calcTotalItems, calcTotalPrice } from "../utils";
-import { CartItem, CounterState } from "../types/types";
+import type { CartItem, CounterSliceState } from "../types/types";
 import { PayloadAction } from "@reduxjs/toolkit";
 
 export const itemsKey: string = "items";
 export const totalItemsAmountKey: string = "totalItemsAmount";
 export const totalItemsPriceKey: string = "totalItemsPrice";
 
-let initialState: CounterState = {
+let initialState: CounterSliceState = {
   items: JSON.parse(localStorage.getItem(itemsKey) ?? "[]"),
   totalItemsAmount: JSON.parse(
     localStorage.getItem(totalItemsAmountKey) ?? "0"
@@ -58,7 +58,7 @@ export const counterSlice = createSlice({
       state.totalItemsAmount = calcTotalItems(state.items);
       state.totalItemsPrice = calcTotalPrice(state.items);
     },
-    deleteItem: (state, action) => {
+    deleteItem: (state, action: PayloadAction<CartItem>) => {
       state.items = state.items.filter((item) => item.id !== action.payload.id);
       state.totalItemsAmount = calcTotalItems(state.items);
       state.totalItemsPrice = calcTotalPrice(state.items);
