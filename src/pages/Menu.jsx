@@ -1,6 +1,6 @@
 import React from "react";
 import { Bars } from "react-loader-spinner";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../api/hooks";
 import { useFetchAllPizzasQuery } from "../api/apiSlice.ts";
 import Footer from "../components/Footer.jsx";
 import Header from "../components/Header.jsx";
@@ -14,7 +14,7 @@ function Menu() {
     isSuccess,
     isError,
   } = useFetchAllPizzasQuery();
-  const cartItems = useSelector((state) => state.counter.items);
+  const cartItems = useAppSelector((state) => state.counter.items);
 
   let content;
   if (isLoading) {

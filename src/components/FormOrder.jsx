@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../api/hooks";
 import { useNavigate } from "react-router-dom";
 import { usePostOrderMutation } from "../api/apiSlice.ts";
 import Input from "../components/Input.jsx";
@@ -14,14 +14,16 @@ import { orderSchema } from "../schema/orderSchema.jsx";
 const FormOrder = () => {
   const { userName } = useContext(UserContext);
   const { setOrderId, setOrderDetails } = useContext(OrderDetailsContext);
-  const items = useSelector((state) => state.counter.items);
-  const cart = useSelector((state) => state.cart.currentCart);
-  const totalItemsPrice = useSelector((state) => state.counter.totalItemsPrice);
+  const items = useAppSelector((state) => state.counter.items);
+  // const cart = useAppSelector((state) => state.cart.currentCart);
+  const totalItemsPrice = useAppSelector(
+    (state) => state.counter.totalItemsPrice
+  );
   const [isPrioritized, setIsPrioritized] = useState(false);
   const [finalPrice, setFinalPrice] = useState(totalItemsPrice);
   const [postOrder, { isError }] = usePostOrderMutation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const {
     handleSubmit,

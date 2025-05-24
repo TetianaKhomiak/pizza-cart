@@ -28,7 +28,7 @@ localStorageMiddleware.startListening({
     setCart
   ),
   effect: (action, listenerApi) => {
-    const state = listenerApi.getState();
+    const state = listenerApi.getState() as RootState;
     localStorage.setItem(itemsKey, JSON.stringify(state.counter.items));
     localStorage.setItem(
       totalItemsAmountKey,
@@ -57,3 +57,6 @@ export const store = configureStore({
       apiSlice.middleware
     ),
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

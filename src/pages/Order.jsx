@@ -1,4 +1,3 @@
-import React from "react";
 import Footer from "../components/Footer.jsx";
 import FormOrder from "../components/FormOrder.jsx";
 import Header from "../components/Header.jsx";

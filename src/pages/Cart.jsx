@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../api/hooks";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer.jsx";
 import Header from "../components/Header.jsx";
@@ -14,8 +14,8 @@ import "../styles/cart.css";
 
 const Cart = () => {
   const { userName } = useContext(UserContext);
-  const items = useSelector((state) => state.counter.items);
-  const dispatch = useDispatch();
+  const items = useAppSelector((state) => state.counter.items);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleOrderPizzas = () => {

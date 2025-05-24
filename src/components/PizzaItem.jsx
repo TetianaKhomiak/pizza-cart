@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../api/hooks";
 import { addItem, deleteItem } from "../redux/counterSlice.ts";
 import Button from "./Button.jsx";
 import Counter from "./Counter.jsx";
@@ -7,7 +7,7 @@ import Counter from "./Counter.jsx";
 function PizzaItem({ pizza }) {
   const { name, unitPrice, imageUrl, ingredients, soldOut } = pizza;
   const [isAddingCounter, setIsAddingCounter] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleRemoveFromCart = () => {
     dispatch(deleteItem(pizza));

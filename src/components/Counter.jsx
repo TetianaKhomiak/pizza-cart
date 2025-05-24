@@ -1,5 +1,4 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../api/hooks";
 import {
   addItem,
   decrementItemAmount,
@@ -8,8 +7,8 @@ import {
 import Button from "./Button";
 
 const Counter = ({ pizza }) => {
-  const dispatch = useDispatch();
-  const items = useSelector((state) => state.counter.items);
+  const dispatch = useAppSelector();
+  const items = useAppDispatch((state) => state.counter.items);
   const counter = items.find((item) => item.id === pizza.id)?.qty;
 
   return (

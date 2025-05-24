@@ -10,7 +10,6 @@ function Input({
   placeholder,
 }) {
   const { field } = useController({ name, control });
-  //console.log(control);
   return (
     <input
       type={type}
