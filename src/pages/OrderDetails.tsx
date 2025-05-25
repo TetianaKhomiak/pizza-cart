@@ -4,6 +4,7 @@ import Header from "../components/Header.tsx";
 import { useOrderDetailsContext } from "../context/OrderDetailsProvider.tsx";
 import "../styles/orderDetails.css";
 import { calculateTimeDifference, formatDate } from "../utils.ts";
+import { useEffect } from "react";
 
 const OrderDetails = () => {
   const { orderId, setOrderId, orderDetails, setOrderDetails } =
@@ -11,10 +12,13 @@ const OrderDetails = () => {
   const navigate = useNavigate();
 
   const currentOrder = orderDetails.find((item) => item.id === orderId);
-  if (!currentOrder) {
-    navigate("*");
-    return null;
-  }
+  useEffect(() => {
+    if (!currentOrder) {
+      navigate("*");
+    }
+  }, [currentOrder, navigate]);
+
+  if (!currentOrder) return null;
 
   const [postOrder, { isError }] = usePostOrderMutation();
 
@@ -63,83 +67,79 @@ const OrderDetails = () => {
             "Some issues have occurred 😔 Please, contact us on 000 555 33 22"
           </p>
         ) : (
-          <>
-            <div className="order-details__wrapper">
-              <div className="order-details__header">
-                <h2 className="order-details__title">
-                  Order {currentOrder.id} status: {currentOrder.status}
-                </h2>
-                {!currentOrder.priority ? (
-                  <p className="order-details__title_green">PREPARING ORDER</p>
-                ) : (
-                  <div className="order-details__priority">
-                    <p className="order-details__title_red">PRIORITY</p>
-                    <p className="order-details__title_green">ORDER</p>
-                  </div>
-                )}
-              </div>
-              <div className="order-details__time">
-                <p className="order-details__time_big">
-                  Only {calculateTimeDifference(currentOrder.estimatedDelivery)}
-                  <span className="order-details__time_margin">minutes</span>
-                  <span className="order-details__time_margin"> left </span>😃
-                </p>
-                <p className="order-details__time_small">
-                  (Estimated delivery:
-                  {formatDate(currentOrder.estimatedDelivery)})
-                </p>
-              </div>
-              <div>
-                <hr className="order-details__line" />
-                {currentOrder &&
-                  currentOrder.cart &&
-                  currentOrder.cart.map((item) => {
-                    return (
-                      <div key={item.pizzaId}>
-                        <div className="order-details__item">
-                          <p>
-                            <span className="order-details__item_bold">
-                              {item.quantity}×
-                            </span>
-                            {item.name}
-                          </p>
-                          <p className="order-details__item_bold">
-                            €{item.totalPrice.toFixed(2)}
-                          </p>
-                        </div>
-                      </div>
-                    );
-                  })}
-              </div>
-              <div>
-                {!currentOrder.priority ? (
-                  <div>
-                    <div className="order-details__price">
-                      <p>Price pizza: €{orderPrice.toFixed(2)} </p>
-                      <p className="order-details__price_text">
-                        To pay on delivery: €{finalItemsPrice.toFixed(2)}
+          <div className="order-details__wrapper">
+            <div className="order-details__header">
+              <h2 className="order-details__title">
+                Order {currentOrder.id} status: {currentOrder.status}
+              </h2>
+              {!currentOrder.priority ? (
+                <p className="order-details__title_green">PREPARING ORDER</p>
+              ) : (
+                <div className="order-details__priority">
+                  <p className="order-details__title_red">PRIORITY</p>
+                  <p className="order-details__title_green">ORDER</p>
+                </div>
+              )}
+            </div>
+            <div className="order-details__time">
+              <p className="order-details__time_big">
+                Only {calculateTimeDifference(currentOrder.estimatedDelivery)}
+                <span className="order-details__time_margin">minutes</span>
+                <span className="order-details__time_margin"> left </span>😃
+              </p>
+              <p className="order-details__time_small">
+                (Estimated delivery:
+                {formatDate(currentOrder.estimatedDelivery)})
+              </p>
+            </div>
+            <div>
+              <hr className="order-details__line" />
+              {currentOrder.cart?.map((item) => {
+                return (
+                  <div key={item.pizzaId}>
+                    <div className="order-details__item">
+                      <p>
+                        <span className="order-details__item_bold">
+                          {item.quantity}×
+                        </span>
+                        {item.name}
+                      </p>
+                      <p className="order-details__item_bold">
+                        €{item.totalPrice.toFixed(2)}
                       </p>
                     </div>
-                    <button
-                      className="order-details__btn"
-                      onClick={handlePriority}>
-                      PRIORITIZE
-                    </button>
                   </div>
-                ) : (
+                );
+              })}
+            </div>
+            <div>
+              {!currentOrder.priority ? (
+                <div>
                   <div className="order-details__price">
                     <p>Price pizza: €{orderPrice.toFixed(2)} </p>
-                    <p className="order-details__price_regular">
-                      Price priority: €{priorityPrice.toFixed(2)}
-                    </p>
                     <p className="order-details__price_text">
                       To pay on delivery: €{finalItemsPrice.toFixed(2)}
                     </p>
                   </div>
-                )}
-              </div>
+                  <button
+                    className="order-details__btn"
+                    onClick={handlePriority}>
+                    PRIORITIZE
+                  </button>
+                </div>
+              ) : (
+                <div className="order-details__price">
+                  <p>Price pizza: €{orderPrice.toFixed(2)} </p>
+                  <p className="order-details__price_regular">
+                    Price priority: €{priorityPrice.toFixed(2)}
+                  </p>
+                  <p className="order-details__price_text">
+                    To pay on delivery: €{finalItemsPrice.toFixed(2)}
+                  </p>
+                </div>
+              )}
             </div>
-          </>
+          </div>
         )}
       </>
     </div>

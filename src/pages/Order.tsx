@@ -9,9 +9,9 @@ const Order = () => {
       <div className="order__wrapper">
         <Header className="order__header" />
       </div>
-      <div className="order__form_wrapper">
+      <main className="order__form_wrapper">
         <FormOrder />
-      </div>
+      </main>
       <Footer />
     </div>
   );

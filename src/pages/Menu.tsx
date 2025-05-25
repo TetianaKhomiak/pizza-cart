@@ -39,8 +39,8 @@ function Menu() {
   } else if (isError) {
     content = (
       <h1 className="error">
-        "Some issues have occurred 😔 <br /> Please, contact us on <br /> 000
-        555 33 22"
+        Some issues have occurred 😔 <br /> Please, contact us on <br /> 000 555
+        33 22
       </h1>
     );
   }
