@@ -9,8 +9,8 @@ import { OrderDetailsContext } from "../context/OrderDetailsProvider.jsx";
 import { UserContext } from "../context/UserNameProvider.jsx";
 import { resetCart, setCart } from "../redux/cartSlice.ts";
 import { clearCart } from "../redux/counterSlice.ts";
-import { OrderFormData, orderSchema } from "../schema/orderSchema.js";
-import type { Order } from "../types/types.ts";
+import { OrderFormData, orderSchema } from "../schema/orderSchema.ts";
+import type { Order, OrderPayloadForm } from "../types/types.ts";
 
 const FormOrder = () => {
   const { userName } = useContext(UserContext);
@@ -19,8 +19,8 @@ const FormOrder = () => {
   const totalItemsPrice = useAppSelector(
     (state) => state.counter.totalItemsPrice
   );
-  const [isPrioritized, setIsPrioritized] = useState(false);
-  const [finalPrice, setFinalPrice] = useState(totalItemsPrice);
+  const [isPrioritized, setIsPrioritized] = useState<boolean>(false);
+  const [finalPrice, setFinalPrice] = useState<number>(totalItemsPrice);
   const [postOrder, { isError }] = usePostOrderMutation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -45,7 +45,7 @@ const FormOrder = () => {
     const isValid = await trigger();
     if (isValid) {
       const data = getValues();
-      const orderPayload = {
+      const orderPayload: OrderPayloadForm = {
         address: data.address,
         customer: data.firstName,
         phone: data.phoneNumber,
@@ -97,7 +97,7 @@ const FormOrder = () => {
   };
 
   const onSubmit = async (data: OrderFormData) => {
-    const orderPayload = {
+    const orderPayload: OrderPayloadForm = {
       address: data.address,
       customer: data.firstName,
       phone: data.phoneNumber,

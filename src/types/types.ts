@@ -50,6 +50,21 @@ export interface OrderRequest {
     ingredients: string[];
   }[];
 }
+export interface OrderPayloadForm {
+  address: string;
+  customer: string;
+  phone: string;
+  priority: boolean;
+  position: string;
+  cart: {
+    pizzaId: number;
+    name: string;
+    quantity: number;
+    totalPrice: number;
+    unitPrice: number;
+    ingredients: string[];
+  }[];
+}
 
 export interface OrderResponse {
   status: string;
