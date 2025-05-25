@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import FormLogin from "../components/FormLogin.jsx";
-import Header from "../components/Header.jsx";
+import FormLogin from "../components/FormLogin.tsx";
+import Header from "../components/Header.tsx";
 import { useUserNameContext } from "../context/UserNameProvider.tsx";
-import { useAppDispatch } from "../api/hooks";
+import { useAppDispatch } from "../api/hooks.ts";
 import { resetCart } from "../redux/cartSlice.ts";
 import { resetCounter } from "../redux/counterSlice.ts";
 

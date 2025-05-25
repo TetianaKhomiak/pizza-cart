@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { OrderDetailsContext } from "../context/OrderDetailsProvider.jsx";
+import { useOrderDetailsContext } from "../context/OrderDetailsProvider.tsx";
 import { useUserNameContext } from "../context/UserNameProvider.tsx";
 
 function Header({ className }) {
   const { userName } = useUserNameContext();
-  const { setOrderId } = useContext(OrderDetailsContext);
-  const { orderDetails } = useContext(OrderDetailsContext);
+  const { setOrderId } = useOrderDetailsContext();
+  const { orderDetails } = useOrderDetailsContext();
 
   const [value, setValue] = useState("");
   const navigate = useNavigate();

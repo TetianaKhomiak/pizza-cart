@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import type {
-  UserNameProviderProps,
+  ContextProviderProps,
   UserNameContextType,
 } from "../types/types.ts";
 
@@ -17,7 +17,7 @@ export const useUserNameContext = () => {
   return context;
 };
 
-const UserNameProvider = ({ children }: UserNameProviderProps) => {
+const UserNameProvider = ({ children }: ContextProviderProps) => {
   const [userName, setUserName] = useLocalStorage<string>("userName", "");
 
   return (

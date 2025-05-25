@@ -1,14 +1,13 @@
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { usePostOrderMutation } from "../api/apiSlice.ts";
-import Header from "../components/Header";
-import { OrderDetailsContext } from "../context/OrderDetailsProvider.jsx";
+import Header from "../components/Header.tsx";
+import { useOrderDetailsContext } from "../context/OrderDetailsProvider.tsx";
 import "../styles/orderDetails.css";
 import { calculateTimeDifference, formatDate } from "../utils.ts";
 
 const OrderDetails = () => {
   const { orderId, setOrderId, orderDetails, setOrderDetails } =
-    useContext(OrderDetailsContext);
+    useOrderDetailsContext();
 
   const currentOrder = orderDetails.find((item) => item.id === orderId);
 

@@ -112,11 +112,19 @@ export interface InputProps {
 }
 
 export type UserName = string;
+
 export interface UserNameContextType {
   userName: UserName;
   setUserName: React.Dispatch<React.SetStateAction<UserName>>;
 }
 
-export type UserNameProviderProps = {
+export type ContextProviderProps = {
   children: React.ReactNode;
 };
+
+export interface OrderDetailsContextType {
+  orderId: string;
+  setOrderId: React.Dispatch<React.SetStateAction<string>>;
+  orderDetails: Order[];
+  setOrderDetails: React.Dispatch<React.SetStateAction<Order[]>>;
+}

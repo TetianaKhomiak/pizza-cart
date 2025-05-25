@@ -1,11 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useAppSelector, useAppDispatch } from "../api/hooks.ts";
 import { useNavigate } from "react-router-dom";
 import { usePostOrderMutation } from "../api/apiSlice.ts";
 import Input from "./Input.tsx";
-import { OrderDetailsContext } from "../context/OrderDetailsProvider.jsx";
+import { useOrderDetailsContext } from "../context/OrderDetailsProvider.tsx";
 import { useUserNameContext } from "../context/UserNameProvider.tsx";
 import { resetCart, setCart } from "../redux/cartSlice.ts";
 import { clearCart } from "../redux/counterSlice.ts";
@@ -14,7 +14,7 @@ import type { Order, OrderPayloadForm } from "../types/types.ts";
 
 const FormOrder = () => {
   const { userName } = useUserNameContext();
-  const { setOrderId, setOrderDetails } = useContext(OrderDetailsContext);
+  const { setOrderId, setOrderDetails } = useOrderDetailsContext();
   const items = useAppSelector((state) => state.counter.items);
   const totalItemsPrice = useAppSelector(
     (state) => state.counter.totalItemsPrice
