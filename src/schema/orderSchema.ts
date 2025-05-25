@@ -21,3 +21,5 @@ export const orderSchema = z.object({
     message: "Address should include both city and street",
   }),
 });
+
+export type OrderFormData = z.infer<typeof orderSchema>;

@@ -1,15 +1,16 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useAppSelector, useAppDispatch } from "../api/hooks";
+import { useAppSelector, useAppDispatch } from "../api/hooks.ts";
 import { useNavigate } from "react-router-dom";
 import { usePostOrderMutation } from "../api/apiSlice.ts";
-import Input from "../components/Input.tsx";
+import Input from "./Input.tsx";
 import { OrderDetailsContext } from "../context/OrderDetailsProvider.jsx";
 import { UserContext } from "../context/UserNameProvider.jsx";
 import { resetCart, setCart } from "../redux/cartSlice.ts";
 import { clearCart } from "../redux/counterSlice.ts";
-import { orderSchema } from "../schema/orderSchema.jsx";
+import { OrderFormData, orderSchema } from "../schema/orderSchema.js";
+import type { Order } from "../types/types.ts";
 
 const FormOrder = () => {
   const { userName } = useContext(UserContext);
@@ -30,7 +31,7 @@ const FormOrder = () => {
     trigger,
     formState: { errors },
     getValues,
-  } = useForm({
+  } = useForm<OrderFormData>({
     mode: "onChange",
     defaultValues: {
       firstName: userName,
@@ -51,7 +52,7 @@ const FormOrder = () => {
         priority: !isPrioritized,
         position: "",
         cart: items.map((item) => ({
-          pizzaId: item.id,
+          pizzaId: Number(item.id),
           name: item.name,
           quantity: item.qty,
           totalPrice: item.totalItemPrice,
@@ -66,19 +67,36 @@ const FormOrder = () => {
         if (response.status !== "success") {
           throw new Error("Error");
         }
-        console.log(response);
-        dispatch(setCart(response.data));
+
+        const cartData = {
+          items: response.data.cart.map((item) => ({
+            id: item.pizzaId,
+            name: item.name,
+            unitPrice: item.unitPrice,
+            imageUrl: "",
+            ingredients: item.ingredients,
+            qty: item.quantity,
+            totalItemPrice: item.totalPrice,
+          })),
+          totalItemsAmount: response.data.cart.reduce(
+            (sum, item) => sum + item.quantity,
+            0
+          ),
+          totalItemsPrice: response.data.orderPrice,
+          priority: response.data.priority,
+          priorityPrice: response.data.priorityPrice,
+        };
+
+        dispatch(setCart(cartData));
         setIsPrioritized(!isPrioritized);
-        setFinalPrice(
-          (totalItemsPrice + response.data.priorityPrice).toFixed(2)
-        );
+        setFinalPrice(totalItemsPrice + response.data.priorityPrice);
       } catch (e) {
         console.error(e);
       }
     }
   };
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: OrderFormData) => {
     const orderPayload = {
       address: data.address,
       customer: data.firstName,
@@ -86,7 +104,7 @@ const FormOrder = () => {
       priority: isPrioritized ? true : false,
       position: "",
       cart: items.map((item) => ({
-        pizzaId: item.id,
+        pizzaId: Number(item.id),
         name: item.name,
         quantity: item.qty,
         totalPrice: item.totalItemPrice,
@@ -104,7 +122,7 @@ const FormOrder = () => {
       }
 
       setOrderId(response.data.id);
-      setOrderDetails((prevOrderDetails) => [
+      setOrderDetails((prevOrderDetails: Order[]) => [
         ...prevOrderDetails,
         response.data,
       ]);
@@ -191,7 +209,7 @@ const FormOrder = () => {
             </div>
             {isPrioritized ? (
               <button className="order__btn">
-                ORDER NOW FOR €{finalPrice}
+                ORDER NOW FOR €{finalPrice.toFixed(2)}
               </button>
             ) : (
               <button className="order__btn">

@@ -36,19 +36,48 @@ export interface PizzaItemProps {
 }
 
 export interface OrderRequest {
-  items: {
-    pizzaId: number;
-    quantity: number;
-  }[];
-  customerName: string;
   address: string;
+  customer: string;
+  phone: string;
+  priority: boolean;
+  position: string;
+  cart: {
+    pizzaId: number;
+    name: string;
+    quantity: number;
+    totalPrice: number;
+    unitPrice: number;
+    ingredients: string[];
+  }[];
 }
 
 export interface OrderResponse {
-  orderId: string;
   status: string;
-  estimatedDeliveryTime: string;
+  data: {
+    id: string;
+    customer: string;
+    phone: string;
+    address: string;
+    cart: {
+      pizzaId: number;
+      name: string;
+      quantity: number;
+      totalPrice: number;
+      unitPrice: number;
+      ingredients: string[];
+      addIngredients?: string[];
+      removeIngredients?: string[];
+    }[];
+    orderPrice: number;
+    priority: boolean;
+    priorityPrice: number;
+    estimatedDelivery: string;
+    status: string;
+    position: string;
+    createdAt: string;
+  };
 }
+export type Order = OrderResponse["data"];
 
 export interface ButtonProps {
   text: string;
@@ -63,6 +92,6 @@ export interface InputProps {
   className?: string;
   id?: string;
   type: string;
-  placeholder: string;
+  placeholder?: string;
   setUserName?: (value: string) => void;
 }
