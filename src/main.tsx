@@ -17,31 +17,31 @@ import { Provider } from "react-redux";
 
 const router = createBrowserRouter([
   {
-    path: "/pizza-app-redux-toolkit-rtk-query/",
+    path: "/pizza-cart/",
     element: <App />,
     children: [
       {
-        path: "/pizza-app-redux-toolkit-rtk-query/",
+        path: "/pizza-cart/",
         element: <Login />,
       },
       {
-        path: "/pizza-app-redux-toolkit-rtk-query/menu",
+        path: "/pizza-cart/menu",
         element: <Menu />,
       },
       {
-        path: "/pizza-app-redux-toolkit-rtk-query/cart",
+        path: "/pizza-cart/cart",
         element: <Cart />,
       },
       {
-        path: "/pizza-app-redux-toolkit-rtk-query/order/new",
+        path: "/pizza-cart/order/new",
         element: <Order />,
       },
       {
-        path: "/pizza-app-redux-toolkit-rtk-query/order/:id",
+        path: "/pizza-cart/order/:id",
         element: <OrderDetails />,
       },
       {
-        path: "/pizza-app-redux-toolkit-rtk-query/order/not-found",
+        path: "/pizza-cart/order/not-found",
         element: <OrderNotFound />,
       },
       {
