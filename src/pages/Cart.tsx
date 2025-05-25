@@ -16,7 +16,7 @@ const Cart = () => {
   const items = useAppSelector((state) => state.counter.items);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  console.log("Cart items:", items);
+
   const handleOrderPizzas = () => {
     navigate("/pizza-app-redux-toolkit-rtk-query/order/new");
   };

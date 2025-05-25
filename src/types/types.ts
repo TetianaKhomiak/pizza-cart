@@ -1,5 +1,8 @@
 import { Control } from "react-hook-form";
 
+export interface HeaderProps {
+  className: string;
+}
 export type CartItem = {
   id: string | number;
   name: string;
@@ -111,11 +114,9 @@ export interface InputProps {
   setUserName?: (value: string) => void;
 }
 
-export type UserName = string;
-
 export interface UserNameContextType {
-  userName: UserName;
-  setUserName: React.Dispatch<React.SetStateAction<UserName>>;
+  userName: string;
+  setUserName: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export type ContextProviderProps = {

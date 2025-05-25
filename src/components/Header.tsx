@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useOrderDetailsContext } from "../context/OrderDetailsProvider.tsx";
 import { useUserNameContext } from "../context/UserNameProvider.tsx";
+import type { HeaderProps } from "../types/types.ts";
 
-function Header({ className }) {
+function Header({ className }: HeaderProps) {
   const { userName } = useUserNameContext();
   const { setOrderId } = useOrderDetailsContext();
   const { orderDetails } = useOrderDetailsContext();
@@ -11,7 +12,7 @@ function Header({ className }) {
   const [value, setValue] = useState("");
   const navigate = useNavigate();
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 

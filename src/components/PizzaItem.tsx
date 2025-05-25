@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useAppDispatch } from "../api/hooks.ts";
 import { addItem, deleteItem } from "../redux/counterSlice.ts";
-import Button from "./Button.js";
-import Counter from "./Counter.js";
+import Button from "./Button.tsx";
+import Counter from "./Counter.tsx";
 import type { PizzaItemProps } from "../types/types.ts";
 
 function PizzaItem({ pizza }: PizzaItemProps) {
   const { name, unitPrice, imageUrl, ingredients, soldOut } = pizza;
-  const [isAddingCounter, setIsAddingCounter] = useState(false);
+  const [isAddingCounter, setIsAddingCounter] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
   const handleRemoveFromCart = () => {

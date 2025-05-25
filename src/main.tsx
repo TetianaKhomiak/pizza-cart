@@ -1,16 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
+import App from "./App.tsx";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Cart from "./pages/Cart.tsx";
 import Menu from "./pages/Menu.tsx";
 import Login from "./pages/Login.tsx";
-import Order from "./pages/Order.jsx";
+import Order from "./pages/Order.tsx";
 import OrderDetails from "./pages/OrderDetails.tsx";
-import OrderNotFound from "./pages/OrderNotFound.jsx";
-import PageNotFound from "./pages/PageNotFound.jsx";
-import OrderDetailsProvider from "./context/OrderDetailsProvider.jsx";
+import OrderNotFound from "./pages/OrderNotFound.tsx";
+import PageNotFound from "./pages/PageNotFound.tsx";
+import OrderDetailsProvider from "./context/OrderDetailsProvider.tsx";
 import UserNameProvider from "./context/UserNameProvider.tsx";
 import { store } from "./api/store.ts";
 import { Provider } from "react-redux";
@@ -52,7 +52,12 @@ const router = createBrowserRouter([
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+const rootElement = document.getElementById("root");
+if (!rootElement) {
+  throw new Error("Failed to find the root element");
+}
+
+ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <Provider store={store}>
       <OrderDetailsProvider>

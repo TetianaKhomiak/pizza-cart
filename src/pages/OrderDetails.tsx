@@ -8,12 +8,16 @@ import { calculateTimeDifference, formatDate } from "../utils.ts";
 const OrderDetails = () => {
   const { orderId, setOrderId, orderDetails, setOrderDetails } =
     useOrderDetailsContext();
+  const navigate = useNavigate();
 
   const currentOrder = orderDetails.find((item) => item.id === orderId);
+  if (!currentOrder) {
+    navigate("*");
+    return null;
+  }
 
   const [postOrder, { isError }] = usePostOrderMutation();
 
-  const navigate = useNavigate();
   const priorityPrice = currentOrder.priorityPrice;
   const orderPrice = currentOrder.orderPrice;
   const finalItemsPrice = currentOrder.priority

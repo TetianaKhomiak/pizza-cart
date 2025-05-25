@@ -1,6 +1,6 @@
-import Footer from "../components/Footer.jsx";
-import FormOrder from "../components/FormOrder.jsx";
-import Header from "../components/Header.jsx";
+import Footer from "../components/Footer.tsx";
+import FormOrder from "../components/FormOrder.tsx";
+import Header from "../components/Header.tsx";
 import "../styles/order.css";
 
 const Order = () => {
