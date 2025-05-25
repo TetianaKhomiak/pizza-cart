@@ -6,14 +6,14 @@ import { useNavigate } from "react-router-dom";
 import { usePostOrderMutation } from "../api/apiSlice.ts";
 import Input from "./Input.tsx";
 import { OrderDetailsContext } from "../context/OrderDetailsProvider.jsx";
-import { UserContext } from "../context/UserNameProvider.jsx";
+import { useUserNameContext } from "../context/UserNameProvider.tsx";
 import { resetCart, setCart } from "../redux/cartSlice.ts";
 import { clearCart } from "../redux/counterSlice.ts";
 import { OrderFormData, orderSchema } from "../schema/orderSchema.ts";
 import type { Order, OrderPayloadForm } from "../types/types.ts";
 
 const FormOrder = () => {
-  const { userName } = useContext(UserContext);
+  const { userName } = useUserNameContext();
   const { setOrderId, setOrderDetails } = useContext(OrderDetailsContext);
   const items = useAppSelector((state) => state.counter.items);
   const totalItemsPrice = useAppSelector(

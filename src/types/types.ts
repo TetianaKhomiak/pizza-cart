@@ -110,3 +110,13 @@ export interface InputProps {
   placeholder?: string;
   setUserName?: (value: string) => void;
 }
+
+export type UserName = string;
+export interface UserNameContextType {
+  userName: UserName;
+  setUserName: React.Dispatch<React.SetStateAction<UserName>>;
+}
+
+export type UserNameProviderProps = {
+  children: React.ReactNode;
+};

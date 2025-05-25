@@ -1,9 +1,8 @@
-import { useContext } from "react";
 import { useAppSelector, useAppDispatch } from "../api/hooks.ts";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer.tsx";
-import Header from "../components/Header.js";
-import { UserContext } from "../context/UserNameProvider.jsx";
+import Header from "../components/Header.tsx";
+import { useUserNameContext } from "../context/UserNameProvider.tsx";
 import {
   addItem,
   clearCart,
@@ -13,7 +12,7 @@ import {
 import "../styles/cart.css";
 
 const Cart = () => {
-  const { userName } = useContext(UserContext);
+  const { userName } = useUserNameContext();
   const items = useAppSelector((state) => state.counter.items);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

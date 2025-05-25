@@ -1,16 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../context/UserNameProvider.jsx";
+import { useUserNameContext } from "../context/UserNameProvider.tsx";
 import { loginSchema } from "../schema/loginSchema.ts";
 import type { LoginFormData } from "../schema/loginSchema.ts";
-import Button from "./Button.js";
+import Button from "./Button.tsx";
 import Input from "./Input.tsx";
 
 function FormLogin() {
   const navigate = useNavigate();
-  const { userName, setUserName } = useContext(UserContext);
+  const { userName, setUserName } = useUserNameContext();
 
   const {
     handleSubmit,

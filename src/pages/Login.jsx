@@ -1,18 +1,17 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import FormLogin from "../components/FormLogin.jsx";
 import Header from "../components/Header.jsx";
-import { UserContext } from "../context/UserNameProvider.jsx";
+import { useUserNameContext } from "../context/UserNameProvider.tsx";
 import { useAppDispatch } from "../api/hooks";
 import { resetCart } from "../redux/cartSlice.ts";
 import { resetCounter } from "../redux/counterSlice.ts";
 
 const Login = () => {
-  const { setUserName } = useContext(UserContext);
+  const { setUserName } = useUserNameContext();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     localStorage.removeItem("userName");
-    // localStorage.removeItem("orderId");
     dispatch(resetCart());
     dispatch(resetCounter());
     setUserName("");
