@@ -52,6 +52,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 60px;
 }
 
 .pizza__price {
@@ -62,6 +63,7 @@
     display: flex;
     gap: 10px;
     align-items: center;
+    height: 60px;
 }
 
 .pizza__counter_counter {
@@ -125,8 +127,6 @@
     margin: 100px auto;
 }
 
-
-
 @media (max-width:800px) {
     .pizza__wrapper_items {
         width: 85%;
@@ -134,19 +134,44 @@
 }
 
 @media (max-width:580px) {
+    .pizza {
+        padding: 15px 0;
+    }
+
     .pizza__actions {
         flex-direction: column;
         align-items: flex-start;
-        gap: 15px;
+
+    }
+
+    .pizza__btn_block {
+        padding: 15px 0;
     }
 }
 
 @media (max-width:500px) {
 
-
     .pizza__btn_block {
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
+        width: 220px;
+
+    }
+
+    .pizza__counter_counter {
+        gap: 5px;
+    }
+
+    .pizza__btn_counter {
+        border-radius: 8px;
+        cursor: pointer;
+        width: 20px;
+        padding: 5px 5px;
+    }
+
+    .pizza__btn_delete {
+        border-radius: 10px;
+        cursor: pointer;
+        width: 60px;
+        padding: 10px 0;
+        text-align: center;
     }
 }

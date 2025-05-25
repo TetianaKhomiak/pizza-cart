@@ -28,6 +28,7 @@ body {
     display: flex;
     justify-content: space-between;
     width: 300px;
+    height: 40px;
 }
 
 .cart__order {
@@ -110,7 +111,6 @@ body {
 .cart__btn_order {
     border-radius: 10px;
     font-weight: 500;
-
 }
 
 .cart__btn_clear:hover {
@@ -151,12 +151,6 @@ body {
     background-color: #FACC15;
 }
 
-.cart__btn_counter:active {
-    border: white solid 2px;
-    background-color: rgb(245, 203, 77);
-    outline: 3px solid rgb(245, 203, 77);
-}
-
 .cart__btn_delete {
     border-radius: 10px;
     cursor: pointer;
@@ -168,13 +162,12 @@ body {
     background-color: #FACC15;
 }
 
-
-.pizza__btn_delete:active {
+.cart__btn_delete:active,
+.cart__btn_counter:active {
     border: white solid 2px;
     background-color: rgb(245, 203, 77);
     outline: 3px solid rgb(245, 203, 77);
 }
-
 
 @media (max-width:1020px) {
     .cart {
