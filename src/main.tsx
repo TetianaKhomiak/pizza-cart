@@ -17,7 +17,7 @@ import { Provider } from "react-redux";
 
 const router = createBrowserRouter([
   {
-    path: "/pizza-cart/",
+    path: "/",
     element: <App />,
     children: [
       { index: true, element: <Login /> },
