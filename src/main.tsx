@@ -20,34 +20,13 @@ const router = createBrowserRouter([
     path: "/pizza-cart/",
     element: <App />,
     children: [
-      {
-        path: "/pizza-cart/",
-        element: <Login />,
-      },
-      {
-        path: "/pizza-cart/menu",
-        element: <Menu />,
-      },
-      {
-        path: "/pizza-cart/cart",
-        element: <Cart />,
-      },
-      {
-        path: "/pizza-cart/order/new",
-        element: <Order />,
-      },
-      {
-        path: "/pizza-cart/order/:id",
-        element: <OrderDetails />,
-      },
-      {
-        path: "/pizza-cart/order/not-found",
-        element: <OrderNotFound />,
-      },
-      {
-        path: "*",
-        element: <PageNotFound />,
-      },
+      { index: true, element: <Login /> },
+      { path: "menu", element: <Menu /> },
+      { path: "cart", element: <Cart /> },
+      { path: "order/new", element: <Order /> },
+      { path: "order/:id", element: <OrderDetails /> },
+      { path: "order/not-found", element: <OrderNotFound /> },
+      { path: "*", element: <PageNotFound /> },
     ],
   },
 ]);
