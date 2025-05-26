@@ -5,9 +5,9 @@
 > https://tetianakhomiak.github.io/pizza-cart/
 
  ## 📋 Toolkit                                                                                                                                                       
- ⚡️ React
- ⚡️ TypeScript
- ⚡️ CSS3                   
+ ⚡️ React                                                                                                                        
+ ⚡️ TypeScript                                                                                                                          
+ ⚡️ CSS3                                                                                                                         
  ⚡️ Responsive                                                                                                                                                          
  ⚡️ Redux Toolkit                                                                                                                                                        
  ⚡️ RTK Query                                                                                                                                                        
