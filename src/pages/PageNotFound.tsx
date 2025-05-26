@@ -10,9 +10,7 @@ const PageNotFound = () => {
         <h1 className="page__unfound_title">Page not found</h1>
         <p className="page__unfound_text">
           Please, visit
-          <Link
-            className="page__unfound_link"
-            to="/pizza-app-redux-toolkit-rtk-query/">
+          <Link className="page__unfound_link" to="/pizza-cart/">
             <span> Login&nbsp;</span>
           </Link>
           page

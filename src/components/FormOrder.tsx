@@ -127,7 +127,7 @@ const FormOrder = () => {
         response.data,
       ]);
 
-      navigate(`/pizza-app-redux-toolkit-rtk-query/order/${response.data.id}`);
+      navigate(`/pizza-cart/order/${response.data.id}`);
       dispatch(clearCart());
       dispatch(resetCart());
     } catch (e) {

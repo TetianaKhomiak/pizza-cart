@@ -18,7 +18,7 @@ const Cart = () => {
   const navigate = useNavigate();
 
   const handleOrderPizzas = () => {
-    navigate("/pizza-app-redux-toolkit-rtk-query/order/new");
+    navigate("/pizza-cart/order/new");
   };
 
   const formattedUserName =
@@ -30,9 +30,7 @@ const Cart = () => {
         <Header className="cart__header" />
       </div>
       <div className="cart">
-        <Link
-          className="cart__link"
-          to="/pizza-app-redux-toolkit-rtk-query/menu">
+        <Link className="cart__link" to="/pizza-cart/menu">
           ← Back to menu
         </Link>
         {items.length === 0 ? (

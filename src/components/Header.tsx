@@ -23,10 +23,10 @@ function Header({ className }: HeaderProps) {
       if (value.trim() !== "") {
         if (isOrderExist) {
           setOrderId(value.trim());
-          navigate(`/pizza-app-redux-toolkit-rtk-query/order/${value.trim()}`);
+          navigate(`/pizza-cart/order/${value.trim()}`);
           setValue("");
         } else {
-          navigate("/pizza-app-redux-toolkit-rtk-query/order/not-found");
+          navigate("/pizza-cart/order/not-found");
           setValue("");
         }
       }
@@ -36,7 +36,7 @@ function Header({ className }: HeaderProps) {
 
   return (
     <header className={className}>
-      <a className="logo" href="/pizza-app-redux-toolkit-rtk-query/menu">
+      <a className="logo" href="/pizza-cart/menu">
         Pizza Day
       </a>
 

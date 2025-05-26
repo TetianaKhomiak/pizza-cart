@@ -23,7 +23,7 @@ function FormLogin() {
     resolver: zodResolver(loginSchema),
   });
   const handleFormSubmit = () => {
-    navigate("/pizza-app-redux-toolkit-rtk-query/menu");
+    navigate("/pizza-cart/menu");
   };
 
   return (

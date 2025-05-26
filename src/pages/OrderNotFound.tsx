@@ -8,9 +8,7 @@ const OrderNotFound = () => {
     <div>
       <Header className="menu__header" />
       <div className="order-unfound__wrapper">
-        <Link
-          className="order-unfound__link"
-          to="/pizza-app-redux-toolkit-rtk-query/menu">
+        <Link className="order-unfound__link" to="/pizza-cart/menu">
           ← Back to menu
         </Link>
         <p className="order-unfound__title">Order not found</p>

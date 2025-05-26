@@ -50,7 +50,7 @@ const OrderDetails = () => {
         return [...updatedOrderDetails, response.data];
       });
       setOrderId(response.data.id);
-      navigate(`/pizza-app-redux-toolkit-rtk-query/order/${response.data.id}`);
+      navigate(`/pizza-cart/order/${response.data.id}`);
     } catch (e) {
       console.error(e);
     }
