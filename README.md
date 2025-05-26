@@ -10,5 +10,6 @@
  ⚡️ CSS3                                                                                                                         
  ⚡️ Responsive                                                                                                                                                          
  ⚡️ Redux Toolkit                                                                                                                                                        
- ⚡️ RTK Query                                                                                                                                                        
+ ⚡️ RTK Query                                                                                                                                  
+ ⚡️ API                                                                                                            
  ⚡️ Zod
