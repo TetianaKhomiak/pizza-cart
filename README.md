@@ -1,11 +1,12 @@
-# 🎯pizzas-app 
+# 🎯pizzas-cart
 
 
 ## 🌐 Webpage Preview 
-> https://tetianakhomiak.github.io/pizza-app-redux-toolkit-rtk-query/
+> https://tetianakhomiak.github.io/pizza-cart/
 
  ## 📋 Toolkit                                                                                                                                                       
- ⚡️ React                                                                                                                                                                                                                                                                                                                                
+ ⚡️ React
+ ⚡️ TypeScript
  ⚡️ CSS3                   
  ⚡️ Responsive                                                                                                                                                          
  ⚡️ Redux Toolkit                                                                                                                                                        
