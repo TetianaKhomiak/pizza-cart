@@ -5,6 +5,7 @@ import { useUserNameContext } from "../context/UserNameProvider.tsx";
 import { useAppDispatch } from "../api/hooks.ts";
 import { resetCart } from "../redux/cartSlice.ts";
 import { resetCounter } from "../redux/counterSlice.ts";
+import "../styles/login.css";
 
 const Login = () => {
   const { setUserName } = useUserNameContext();
